@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
-import { AdminService } from "src/app/services/admin.service";
+// import { AdminService } from "src/app/services/admin.service";
 
 @Component({
     selector: 'app-course-creation',
@@ -20,7 +20,7 @@ export class CreateCourseComponent implements OnInit{
 
     constructor(
         private formBuilder: FormBuilder,
-        private adminService: AdminService
+        // private adminService: AdminService
     ) { }
 
     ngOnInit(): void {
@@ -53,19 +53,21 @@ export class CreateCourseComponent implements OnInit{
 
       let payload = {
         nrc: values.NRC,
+        grado: values.grado,
         curso: values.curso,
-        grado: values.grado
       }
 
-      this.adminService.addCourse(payload).subscribe(
-        (resp) => {
-          if (resp.success){
-            console.log('Datos actualizados');
-          }
-        },
-        (errResp) => {
-          console.error(errResp);
-        }
-      )
+      console.log(payload);
+
+      // this.adminService.addCourse(payload).subscribe(
+      //   (resp) => {
+      //     if (resp.success){
+      //       console.log('Datos actualizados');
+      //     }
+      //   },
+      //   (errResp) => {
+      //     console.error(errResp);
+      //   }
+      // )
     }
 }
