@@ -10,6 +10,7 @@ import { AdminService } from "src/app/services/admin.service";
 
 export class CreateCourseComponent implements OnInit{
     title: String = "Crear nuevo curso";
+    studentData = [];
     dataCurso = {
       nrc: 0,
       grado: 0,
@@ -25,19 +26,20 @@ export class CreateCourseComponent implements OnInit{
 
     ngOnInit(): void {
         this.buildForms();
+        this.getInitialData();
     }
 
     buildForms(){
         this.courseForm = this.formBuilder.group({
             NRC: ['', Validators.required],
-            grado: ['', 
+            grado: ['',
               Validators.compose([
                 Validators.required,
                 Validators.min(1),
                 Validators.max(11),
               ])
             ],
-            curso: ['', 
+            curso: ['',
               Validators.compose([
                 Validators.required,
                 Validators.min(1),
@@ -46,26 +48,42 @@ export class CreateCourseComponent implements OnInit{
             ],
         });
     }
-    
-    saveCourseData(values: any){
-      this.courseForm.markAllAsTouched();
-      if (this.courseForm.invalid) return;
 
-      let payload = {
-        nrc: values.NRC,
-        curso: values.curso,
-        grado: values.grado
-      }
-
-      this.adminService.addCourse(payload).subscribe(
+    getInitialData(){
+    //Traer asíncronamente la data de la url con ayuda de adminservice
+      this.adminService.getStudent().subscribe(
         (resp) => {
-          if (resp.success){
-            console.log('Datos actualizados');
-          }
+          let tree = resp;
+          this.studentData = tree;
         },
         (errResp) => {
           console.error(errResp);
-        }
-      )
+        },
+        () => {
+          console.log('l');
+        })
+    }
+
+    saveCourseData(values: any){
+    console.log(this.studentData);
+    this.courseForm.markAllAsTouched();
+    if (this.courseForm.invalid) return;
+
+    let payload = {
+      nrc: values.NRC,
+      curso: values.curso,
+      grado: values.grado
+    }
+
+    // this.adminService.addCourse(payload).subscribe(
+    //   (resp) => {
+    //     if (resp.success){
+    //       console.log('Datos actualizados');
+    //     }
+    //   },
+    //   (errResp) => {
+    //     console.error(errResp);
+    //   }
+    // )
     }
 }

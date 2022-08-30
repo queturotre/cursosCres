@@ -6,20 +6,25 @@ import { AppComponent } from './app.component';
 import { CreateCourseComponent } from './components/createCourse/createCourse.component';
 import { CourseComponent } from './components/course/course.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { AdminService } from './services/admin.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateCourseComponent,
     CoursesComponent,
-    CourseComponent
+    CourseComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    AdminService,
+    HttpClient,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

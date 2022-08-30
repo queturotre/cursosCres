@@ -1,32 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class AdminService {
-  private apiUrl = '';
+  apiUrl: string;
 
-  constructor(private http: HttpClient) {}
-
-  getCourse(): Observable<any>{
-    let url = '192.65.23.45' + '/courses';
-    return this.http.get(url)
-  }
-
-  addCourse(payload: any): Observable<any>{
-    let url = '192.65.23.45' + '/course-request';
-    return this.http.get(url, payload)
+  constructor(private http: HttpClient) {
+    this.apiUrl = "https://my-json-server.typicode.com";
   }
 
   getStudent(): Observable<any>{
-    let url = '192.65.23.45' + '/students';
-    return this.http.get(url)
-  }
-
-  addStudent(payload: any): Observable<any>{
-    let url = '192.65.23.45' + '/student-request';
-    return this.http.get(url, payload)
+    let url = this.apiUrl + "/queturotre/cremedi/credits";
+    return this.http.get(url);
   }
 }
+
+  // getCourse(): Observable<any>{
+  //   let url = '192.65.23.45' + '/courses';
+  //   return this.http.get(url)
+  // }
+
+  // addCourse(payload: any): Observable<any>{
+  //   let url = '192.65.23.45' + '/course-request';
+  //   return this.http.get(url, payload)
+  // }
+
+  // addStudent(payload: any): Observable<any>{
+  //   let url = '192.65.23.45' + '/student-request';
+  //   return this.http.get(url, payload)
+  // }
