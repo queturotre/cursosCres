@@ -1,0 +1,32 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AdminService {
+  private apiUrl = '';
+
+  constructor(private http: HttpClient) {}
+
+  getCourse(): Observable<any>{
+    let url = '192.65.23.45' + '/courses';
+    return this.http.get(url)
+  }
+
+  addCourse(payload: any): Observable<any>{
+    let url = '192.65.23.45' + '/course-request';
+    return this.http.get(url, payload)
+  }
+
+  getStudent(): Observable<any>{
+    let url = '192.65.23.45' + '/students';
+    return this.http.get(url)
+  }
+
+  addStudent(payload: any): Observable<any>{
+    let url = '192.65.23.45' + '/student-request';
+    return this.http.get(url, payload)
+  }
+}

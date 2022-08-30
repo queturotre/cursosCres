@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="header" (click)="showTableData()">
+    <header>
+      <ul>
+          <span>Nrc:</span><b>NRC</b><br>
+          <span>Grade:</span><b>Grado</b><br>
+          <span>Course:</span><b>Course</b><br>
+      </ul>
+    </header>
+  </div>
+  <div class="table" *ngIf="showTable">
+    <table>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Cres</th>
+        <th>Aumentar</th>
+        <th>Disminuir</th>
+        <th>Eliminar</th>
+      </tr>
+      <tr> <!-- *ngFor="let pensionFound of pensionFoundList" -->
+        <td>student.name</td>
+        <td>student.LastName</td>
+        <td>student.Cres</td>
+        <td>
+          <button>Arriba</button>
+        </td>
+        <td>
+          <button>Abajo</button>
+        </td>
+        <td>
+          <button>ÍconoBasura</button>
+        </td>
+      </tr>
+    </table>
+
+    <footer>
+      <button (click)="showForm()">Añadir Estudiante</button>
+    </footer>
+
+    <div class="form" *ngIf="showStudentFormView">
+      <form [formGroup]="studentForm">
+        <label for="">Nombre</label><br> 
+        <div class="input">
+            <input type="text" formControlName="nombre" /><br>
+            <div *ngIf="studentForm.controls['nombre'].hasError('required') && studentForm.controls['nombre'].touched">Requerido</div>
+        </div>
+    
+        <label for="">Edad</label><br> 
+        <div class="input">
+            <input type="text" formControlName="edad"><br>
+            <div *ngIf="studentForm.controls['edad'].hasError('required') && studentForm.controls['edad'].touched">Requerido</div>
+            <div *ngIf="studentForm.controls['edad'].hasError('max') && studentForm.controls['edad'].touched">Requerido</div>
+            <div *ngIf="studentForm.controls['edad'].hasError('min') && studentForm.controls['edad'].touched">Requerido</div>
+        </div>
+
+        <button type="button" (click)="collectStudentData(studentForm.value)" class="btn btn-primary">Crear Estudiante</button>
+    </form>
+    </div>
+  </div>
+</div>
