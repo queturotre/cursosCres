@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
@@ -16,10 +16,18 @@ export class CourseComponent implements OnInit{
     }
     dataEstudiante = {
         nombre: '',
-        edad: 0,
-        cres: 0
+        edad: 0
     }
     studentForm!: FormGroup;
+
+    myCres: number = 0;
+
+    estudiantes: any[] = [
+      {nombre: 'Ricardo', apellido: 'García', cres: 0},
+      {nombre: 'Miguel', apellido: 'Castro', cres: 0},
+      {nombre: 'Andrés', apellido: 'Castro', cres: 0},
+      {nombre: 'Gabriel', apellido: 'García', cres: 0}
+    ];
 
     constructor(
         private formBuilder: FormBuilder
@@ -29,15 +37,35 @@ export class CourseComponent implements OnInit{
         this.buildForms();
     }
 
+    ngAfterViewInit(){
+      // this.myCres = document.getElementById("myCres");
+    }
+
     buildForms(){
         this.studentForm = this.formBuilder.group({
             nombre: ['', Validators.required],
-            edad: ['', Validators.required]
+            apellido: ['', Validators.required],
+            cres: ['', Validators.required],
         });
     }
 
     showTableData(){
         this.showTable = !this.showTable;
+    }
+
+    // onKeyUp(event: any){
+    //   this.myCres += event.target.value;
+    // }
+    addCre(i:any){
+      this.estudiantes[i].cres += 1;
+    }
+
+    diminishCre(i:any){
+      this.estudiantes[i].cres -= 1;
+    }
+
+    deleteStudent(i: any){
+      this.estudiantes.splice(i, 1);
     }
     showForm(){
         this.showStudentFormView = !this.showStudentFormView;
@@ -45,6 +73,6 @@ export class CourseComponent implements OnInit{
 
     collectStudentData(values: any){
         this.showStudentFormView = !this.showStudentFormView;
-        console.log(values);
+        this.estudiantes.push(values);
     }
 }

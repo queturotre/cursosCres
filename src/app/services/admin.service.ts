@@ -6,27 +6,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = '';
+  apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
   getCourse(): Observable<any>{
-    let url = '192.65.23.45' + '/courses';
+    let url = this.apiUrl + '/courses';
     return this.http.get(url)
   }
 
-  addCourse(payload: any): Observable<any>{
-    let url = '192.65.23.45' + '/course-request';
-    return this.http.get(url, payload)
-  }
-
-  getStudent(): Observable<any>{
-    let url = '192.65.23.45' + '/students';
-    return this.http.get(url)
-  }
-
-  addStudent(payload: any): Observable<any>{
-    let url = '192.65.23.45' + '/student-request';
-    return this.http.get(url, payload)
-  }
 }
+// addCourse(payload: any): Observable<any>{
+//   let url = '192.65.23.45' + '/course-request';
+//   return this.http.get(url, payload)
+// }
+
+// getStudent(): Observable<any>{
+//   let url = '192.65.23.45' + '/students';
+//   return this.http.get(url)
+// }
+
+// addStudent(payload: any): Observable<any>{
+//   let url = '192.65.23.45' + '/student-request';
+//   return this.http.get(url, payload)
+// }

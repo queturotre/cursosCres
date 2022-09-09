@@ -30,14 +30,14 @@ export class CreateCourseComponent implements OnInit{
     buildForms(){
         this.courseForm = this.formBuilder.group({
             NRC: ['', Validators.required],
-            grado: ['', 
+            grado: ['',
               Validators.compose([
                 Validators.required,
                 Validators.min(1),
                 Validators.max(11),
               ])
             ],
-            curso: ['', 
+            curso: ['',
               Validators.compose([
                 Validators.required,
                 Validators.min(1),
@@ -46,10 +46,10 @@ export class CreateCourseComponent implements OnInit{
             ],
         });
     }
-    
+
     saveCourseData(values: any){
-      this.courseForm.markAllAsTouched();
-      if (this.courseForm.invalid) return;
+      // this.courseForm.markAllAsTouched();
+      // if (this.courseForm.invalid) return;
 
       let payload = {
         nrc: values.NRC,
