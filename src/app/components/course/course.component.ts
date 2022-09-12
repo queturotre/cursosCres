@@ -25,7 +25,10 @@ export class CourseComponent implements OnInit{
       {nombre: 'Ricardo', apellido: 'García', cres: 0},
       {nombre: 'Miguel', apellido: 'Castro', cres: 0},
       {nombre: 'Andrés', apellido: 'Castro', cres: 0},
-      {nombre: 'Gabriel', apellido: 'García', cres: 0}
+      {nombre: 'Gabriel', apellido: 'García', cres: 0},
+      {nombre: 'Frank', apellido: 'Gallego', cres: 0},
+      {nombre: 'Lily', apellido: 'Ramírez', cres: 0},
+      {nombre: 'Camila', apellido: 'Oviedo', cres: 0}
     ];
 
     constructor(
@@ -68,7 +71,7 @@ export class CourseComponent implements OnInit{
 
     collectStudentData(values: any){
       this.toggleStudentCreation();
-        this.estudiantes.push(values);
+      this.estudiantes.push(values);
     }
 
     toggleStudentCreation(){

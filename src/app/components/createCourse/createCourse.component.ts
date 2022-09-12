@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 // import { AdminService } from "src/app/services/admin.service";
 
@@ -9,12 +9,8 @@ import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 })
 
 export class CreateCourseComponent implements OnInit{
+  @Output() sender: EventEmitter<any> = new EventEmitter();
     title: String = "Crear nuevo curso";
-    dataCurso = {
-      nrc: 0,
-      grado: 0,
-      curso: 0
-    }
 
     courseForm!: FormGroup;
 
@@ -48,26 +44,22 @@ export class CreateCourseComponent implements OnInit{
     }
 
     saveCourseData(values: any){
-      // this.courseForm.markAllAsTouched();
-      // if (this.courseForm.invalid) return;
-
       let payload = {
         nrc: values.NRC,
         grado: values.grado,
         curso: values.curso,
       }
-
-      console.log(payload);
-
-      // this.adminService.addCourse(payload).subscribe(
-      //   (resp) => {
-      //     if (resp.success){
-      //       console.log('Datos actualizados');
-      //     }
-      //   },
-      //   (errResp) => {
-      //     console.error(errResp);
-      //   }
-      // )
     }
 }
+  // this.courseForm.markAllAsTouched();
+  // if (this.courseForm.invalid) return;
+  // this.adminService.addCourse(payload).subscribe(
+  //   (resp) => {
+  //     if (resp.success){
+  //       console.log('Datos actualizados');
+  //     }
+  //   },
+  //   (errResp) => {
+  //     console.error(errResp);
+  //   }
+  // )

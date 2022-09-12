@@ -1,26 +1,2 @@
 <h1>{{ title }}</h1>
-<form [formGroup]="courseForm">
-    <label for="">NRC</label><br>
-    <div class="input">
-        <input type="text" formControlName="NRC" /><br>
-        <div *ngIf="courseForm.controls['NRC'].hasError('required') && courseForm.controls['NRC'].touched">Requerido</div>
-    </div>
 
-    <label for="">Grado</label><br>
-    <div class="input">
-        <input type="text" formControlName="grado"><br>
-        <div *ngIf="courseForm.controls['grado'].hasError('required') && courseForm.controls['grado'].touched">Requerido</div>
-        <div *ngIf="courseForm.controls['grado'].hasError('max') && courseForm.controls['grado'].touched">Máximo 11</div>
-        <div *ngIf="courseForm.controls['grado'].hasError('min') && courseForm.controls['grado'].touched">Mínimo 1</div>
-    </div>
-
-    <label for="">Curso</label><br>
-    <div class="input">
-        <input type="text" formControlName="curso"><br>
-        <div *ngIf="courseForm.controls['curso'].hasError('required') && courseForm.controls['curso'].touched">Requerido</div>
-        <div *ngIf="courseForm.controls['curso'].hasError('max') && courseForm.controls['curso'].touched">Máximo 5</div>
-        <div *ngIf="courseForm.controls['curso'].hasError('min') && courseForm.controls['curso'].touched">Mínimo 1</div>
-    </div>
-    <button type="button" (click)="saveCourseData(courseForm.value)" class="btn btn-primary">Crear</button>
-    <button routerLink="/" class="btn btn-primary">Menú</button>
-</form>
