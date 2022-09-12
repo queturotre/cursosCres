@@ -1,12 +1,16 @@
 <div class="container">
-  <div class="menu" *ngIf="currentPage == PAGES.MENU">
-    <button type="button" class="btn btn-primary" (click)="goCreateCourse()">Crear Curso</button>
-    <button type="button" class="btn btn-primary" (click)="goToCourses()">Cursos</button>
+  <h1 class="mainTitle text-center">Cres</h1>
+  <button type="button" class="btn btn-primary" routerLink="/crearCurso">Crear Curso</button>
+  <button type="button" class="btn btn-primary" [routerLink]="['/cursos']">Cursos</button>
+  <router-outlet></router-outlet>
+</div>
+
+
+  <!-- <div class="menu text-center" *ngIf="currentPage == PAGES.MENU">
   </div>
   <div class="createCourse" *ngIf="currentPage === PAGES.CREATE_COURSE">
     <app-course-creation></app-course-creation>
   </div>
   <div class="courses" *ngIf="currentPage === PAGES.COURSES">
     <app-courses></app-courses>
-  </div>
-</div>
+  </div> -->

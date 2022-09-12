@@ -7,7 +7,6 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
     styleUrls: ['./course.component.css'],
 })
 export class CourseComponent implements OnInit{
-    showTable = false;
     showStudentFormView = false
     dataHead = {
         nrc: 0,
@@ -49,10 +48,6 @@ export class CourseComponent implements OnInit{
         });
     }
 
-    showTableData(){
-        this.showTable = !this.showTable;
-    }
-
     // onKeyUp(event: any){
     //   this.myCres += event.target.value;
     // }
@@ -72,7 +67,11 @@ export class CourseComponent implements OnInit{
     }
 
     collectStudentData(values: any){
-        this.showStudentFormView = !this.showStudentFormView;
+      this.toggleStudentCreation();
         this.estudiantes.push(values);
+    }
+
+    toggleStudentCreation(){
+      this.showStudentFormView = !this.showStudentFormView;
     }
 }
