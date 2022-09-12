@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
     styleUrls: ['./course.component.css'],
 })
 export class CourseComponent implements OnInit{
+  //@Input() studentCourseData = '';
     showStudentFormView = false
     dataHead = {
         nrc: 0,
