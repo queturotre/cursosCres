@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
     styleUrls: ['./course.component.css'],
 })
 export class CourseComponent implements OnInit{
-    showTable = false;
+  //@Input() studentCourseData = '';
     showStudentFormView = false
     dataHead = {
         nrc: 0,
@@ -16,10 +16,21 @@ export class CourseComponent implements OnInit{
     }
     dataEstudiante = {
         nombre: '',
-        edad: 0,
-        cres: 0
+        edad: 0
     }
     studentForm!: FormGroup;
+
+    myCres: number = 0;
+
+    estudiantes: any[] = [
+      {nombre: 'Ricardo', apellido: 'García', cres: 0},
+      {nombre: 'Miguel', apellido: 'Castro', cres: 0},
+      {nombre: 'Andrés', apellido: 'Castro', cres: 0},
+      {nombre: 'Gabriel', apellido: 'García', cres: 0},
+      {nombre: 'Frank', apellido: 'Gallego', cres: 0},
+      {nombre: 'Lily', apellido: 'Ramírez', cres: 0},
+      {nombre: 'Camila', apellido: 'Oviedo', cres: 0}
+    ];
 
     constructor(
         private formBuilder: FormBuilder
@@ -29,22 +40,38 @@ export class CourseComponent implements OnInit{
         this.buildForms();
     }
 
+    ngAfterViewInit(){
+      // this.myCres = document.getElementById("myCres");
+    }
+
     buildForms(){
         this.studentForm = this.formBuilder.group({
             nombre: ['', Validators.required],
-            edad: ['', Validators.required]
+            apellido: ['', Validators.required],
+            cres: ['', Validators.required],
         });
     }
 
-    showTableData(){
-        this.showTable = !this.showTable;
+    // onKeyUp(event: any){
+    //   this.myCres += event.target.value;
+    // }
+    addCre(i:any){
+      this.estudiantes[i].cres += 1;
+    }
+
+    diminishCre(i:any){
+      this.estudiantes[i].cres -= 1;
+    }
+
+    deleteStudent(i: any){
+      this.estudiantes.splice(i, 1);
     }
     showForm(){
         this.showStudentFormView = !this.showStudentFormView;
     }
 
     collectStudentData(values: any){
-        this.showStudentFormView = !this.showStudentFormView;
-        console.log(values);
+      this.showForm();
+      this.estudiantes.push(values);
     }
 }
