@@ -13,8 +13,7 @@ import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http'
 const appRoutes: Routes = [
   {path: "home", component: AppComponent},
   {path: "cursos", component: CoursesComponent},
-  {path: "curso", component: CourseComponent},
-  {path: "crearCurso", component: CreateCourseComponent},
+  {path: "curso/:id", component: CourseComponent},
 ];
 
 @NgModule({

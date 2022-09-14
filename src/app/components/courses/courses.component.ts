@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
+import { ActivatedRoute } from "@angular/router";
 import { AdminService } from "src/app/services/admin.service";
 
 @Component({
@@ -7,63 +8,79 @@ import { AdminService } from "src/app/services/admin.service";
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
-export class CoursesComponent implements OnInit{
+
+export class CoursesComponent implements OnInit {
 
   showForm: boolean = false;
 
-  courses = [];
+  courses: any = [];
+  courseData: any = {
+    nrc: '',
+    level: '',
+    course: ''
+  }
 
   courseForm!: FormGroup;
 
   constructor(
-      private formBuilder: FormBuilder,
-      private adminService: AdminService
+    private formBuilder: FormBuilder,
+    private adminService: AdminService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-      this.buildForms();
-      this.getInitialData();
+    this.buildForms();
+    this.getInitialData();
+    console.log("Course id is: ", this.route.snapshot.paramMap.get('id'));
   }
 
-  buildForms(){
-      this.courseForm = this.formBuilder.group({
-          NRC: ['', Validators.required],
-          grado: ['',
-            Validators.compose([
-              Validators.required,
-              Validators.min(1),
-              Validators.max(11),
-            ])
-          ],
-          curso: ['',
-            Validators.compose([
-              Validators.required,
-              Validators.min(1),
-              Validators.max(5),
-            ])
-          ],
-      });
+  buildForms() {
+    this.courseForm = this.formBuilder.group({
+      nrc: ['', Validators.required],
+      grado: ['',
+        Validators.compose([
+          Validators.required,
+          Validators.min(1),
+          Validators.max(11),
+        ])
+      ],
+      curso: ['',
+        Validators.compose([
+          Validators.required,
+          Validators.min(1),
+          Validators.max(5),
+        ])
+      ],
+    });
   }
 
-  getInitialData(){
+  getInitialData() {
     this.adminService.getCourseData().subscribe(
       (resp) => {
         let tree = resp;
         this.courses = tree;
-        console.log(this.courses);
+        console.log(this.courses[0]);
+        this.assignData();
       }
     );
   }
 
-  addCourse(){
+  assignData() {
+    this.courseData.nrc = this.courses[0].nrc;
+    this.courseData.level = this.courses[0].grado;
+    this.courseData.course = this.courses[0].curso;
+  }
+
+  addCourse() {
     this.courses.push();
   }
 
-  toggleForm(){
+  toggleForm() {
     this.showForm = !this.showForm;
   }
 
-  saveCourseData(values: any){
+  saveCourseData(values: any) {
+    this.courses.push(values);
     console.log(this.courses);
     this.toggleForm();
   }

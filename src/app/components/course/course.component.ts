@@ -1,77 +1,87 @@
-import { Component, OnInit, AfterViewInit, Input } from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AdminService } from "src/app/services/admin.service";
 
 @Component({
-    selector: 'app-course',
-    templateUrl:'./course.component.html',
-    styleUrls: ['./course.component.css'],
+  selector: 'app-course',
+  templateUrl: './course.component.html',
+  styleUrls: ['./course.component.css'],
 })
-export class CourseComponent implements OnInit{
-  //@Input() studentCourseData = '';
-    showStudentFormView = false
-    dataHead = {
-        nrc: 0,
-        grado: 0,
-        curso: 0
-    }
-    dataEstudiante = {
-        nombre: '',
-        edad: 0
-    }
-    studentForm!: FormGroup;
+export class CourseComponent implements OnInit {
+  showStudentFormView = false;
+  nrc = ''; grado = ''; curso = '';
 
-    myCres: number = 0;
+  dataHead = {
+    nrc: 0,
+    grado: 0,
+    curso: 0
+  }
+  dataEstudiante = {
+    nombre: '',
+    edad: 0
+  }
 
-    estudiantes: any[] = [
-      {nombre: 'Ricardo', apellido: 'García', cres: 0},
-      {nombre: 'Miguel', apellido: 'Castro', cres: 0},
-      {nombre: 'Andrés', apellido: 'Castro', cres: 0},
-      {nombre: 'Gabriel', apellido: 'García', cres: 0},
-      {nombre: 'Frank', apellido: 'Gallego', cres: 0},
-      {nombre: 'Lily', apellido: 'Ramírez', cres: 0},
-      {nombre: 'Camila', apellido: 'Oviedo', cres: 0}
-    ];
+  studentForm!: FormGroup;
 
-    constructor(
-        private formBuilder: FormBuilder
-    ) { }
+  myCres: number = 0;
 
-    ngOnInit(): void {
-        this.buildForms();
-    }
+  estudiantes: any[] = [];
 
-    ngAfterViewInit(){
-      // this.myCres = document.getElementById("myCres");
-    }
+  constructor(
+    private formBuilder: FormBuilder,
+    private adminService: AdminService,
+  ) { }
 
-    buildForms(){
-        this.studentForm = this.formBuilder.group({
-            nombre: ['', Validators.required],
-            apellido: ['', Validators.required],
-            cres: ['', Validators.required],
-        });
-    }
+  ngOnInit(): void {
+    this.buildForms();
+    this.getInitialData();
+  }
 
-    // onKeyUp(event: any){
-    //   this.myCres += event.target.value;
-    // }
-    addCre(i:any){
-      this.estudiantes[i].cres += 1;
-    }
+  getInitialData() {
+    this.adminService.getCourseData().subscribe(
+      (res) => {
+        let tree = res;
+        this.nrc = tree[2].nrc;
+        this.grado = tree[2].grado;
+        this.curso = tree[2].curso;
+        this.estudiantes = tree[2].estudiantes;
+      }
+    );
+  }
 
-    diminishCre(i:any){
-      this.estudiantes[i].cres -= 1;
-    }
 
-    deleteStudent(i: any){
-      this.estudiantes.splice(i, 1);
-    }
-    showForm(){
-        this.showStudentFormView = !this.showStudentFormView;
-    }
+  ngAfterViewInit() {
+    // this.myCres = document.getElementById("myCres");
+  }
 
-    collectStudentData(values: any){
-      this.showForm();
-      this.estudiantes.push(values);
-    }
+  buildForms() {
+    this.studentForm = this.formBuilder.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      cres: ['', Validators.required],
+    });
+  }
+
+  // onKeyUp(event: any){
+  //   this.myCres += event.target.value;
+  // }
+  addCre(i: any) {
+    this.estudiantes[i].cres += 1;
+  }
+
+  diminishCre(i: any) {
+    this.estudiantes[i].cres -= 1;
+  }
+
+  deleteStudent(i: any) {
+    this.estudiantes.splice(i, 1);
+  }
+  showForm() {
+    this.showStudentFormView = !this.showStudentFormView;
+  }
+
+  collectStudentData(values: any) {
+    this.showForm();
+    this.estudiantes.push(values);
+  }
 }

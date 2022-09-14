@@ -1,43 +1,47 @@
 <div class="container">
-    <h1>Cursos</h1>
-    <!-- Mostrar los cursos que se vayan creando -->
-    <a routerLink="/curso">
-      <section *ngFor="let course of courses; let i = index" class="headera">
-        <span><b>Grade: </b></span> course.grado <br>
-        <span><b>Course: </b></span> course.curso <br>
-        <span><b>NRC: </b></span> course.nrc <br>
-      </section> <br>
-    </a>
+  <h1>Cursos</h1>
+  <!-- Mostrar los cursos que se vayan creando -->
+  <section *ngFor="let course of courses; let i = index" class="headera row">
+    <span class="col col-sm col-md col-lg"><b>NRC: </b></span> {{ course.nrc }}
+    <span class="col col-sm col-md col-lg"><b>Grado: </b></span> {{ course.grado }}
+    <span class="col col-sm col-md col-lg"><b>Curso: </b></span> {{ course.curso }}
+    <a class="col col-sm col-md col-lg" routerLink="/curso/1">Entrar</a>
+  </section> <br>
 
-    <button class="btn btn-primary" routerLink="/">Menú</button>
-    <button class="btn btn-primary" (click)="toggleForm()">Crear Curso</button>
+  <button class="btn btn-primary" routerLink="/curso/2">Menú</button>
+  <button class="btn btn-primary" (click)="toggleForm()">Crear Curso</button>
 
-    <div class="form" *ngIf="showForm">
-      <form [formGroup]="courseForm">
-        <label for="">NRC</label><br>
-        <div class="input">
-            <input type="text" formControlName="NRC" /><br>
-            <div *ngIf="courseForm.controls['NRC'].hasError('required') && courseForm.controls['NRC'].touched">Requerido</div>
+  <div class="form" *ngIf="showForm">
+    <form [formGroup]="courseForm">
+      <label for="">NRC</label><br>
+      <div class="input">
+        <input type="text" formControlName="nrc" /><br>
+        <div *ngIf="courseForm.controls['nrc'].hasError('required') && courseForm.controls['nrc'].touched">Requerido
         </div>
+      </div>
 
-        <label for="">Grado</label><br>
-        <div class="input">
-            <input type="text" formControlName="grado"><br>
-            <div *ngIf="courseForm.controls['grado'].hasError('required') && courseForm.controls['grado'].touched">Requerido</div>
-            <div *ngIf="courseForm.controls['grado'].hasError('max') && courseForm.controls['grado'].touched">Máximo 11</div>
-            <div *ngIf="courseForm.controls['grado'].hasError('min') && courseForm.controls['grado'].touched">Mínimo 1</div>
+      <label for="">Grado</label><br>
+      <div class="input">
+        <input type="text" formControlName="grado"><br>
+        <div *ngIf="courseForm.controls['grado'].hasError('required') && courseForm.controls['grado'].touched">Requerido
         </div>
-
-        <label for="">Curso</label><br>
-        <div class="input">
-            <input type="text" formControlName="curso"><br>
-            <div *ngIf="courseForm.controls['curso'].hasError('required') && courseForm.controls['curso'].touched">Requerido</div>
-            <div *ngIf="courseForm.controls['curso'].hasError('max') && courseForm.controls['curso'].touched">Máximo 5</div>
-            <div *ngIf="courseForm.controls['curso'].hasError('min') && courseForm.controls['curso'].touched">Mínimo 1</div>
+        <div *ngIf="courseForm.controls['grado'].hasError('max') && courseForm.controls['grado'].touched">Máximo 11
         </div>
-      </form>
+        <div *ngIf="courseForm.controls['grado'].hasError('min') && courseForm.controls['grado'].touched">Mínimo 1</div>
+      </div>
 
-      <button routerLink="/cursos" type="button" (click)="saveCourseData(courseForm.value)" class="btn btn-primary">Crear</button>
-      <button (click)="toggleForm()" class="btn btn-primary">Cancelar</button>
-    </div>
+      <label for="">Curso</label><br>
+      <div class="input">
+        <input type="text" formControlName="curso"><br>
+        <div *ngIf="courseForm.controls['curso'].hasError('required') && courseForm.controls['curso'].touched">Requerido
+        </div>
+        <div *ngIf="courseForm.controls['curso'].hasError('max') && courseForm.controls['curso'].touched">Máximo 5</div>
+        <div *ngIf="courseForm.controls['curso'].hasError('min') && courseForm.controls['curso'].touched">Mínimo 1</div>
+      </div>
+    </form>
+
+    <button routerLink="/cursos" type="button" (click)="saveCourseData(courseForm.value)"
+      class="btn btn-primary">Crear</button>
+    <button (click)="toggleForm()" class="btn btn-primary">Cancelar</button>
+  </div>
 </div>
