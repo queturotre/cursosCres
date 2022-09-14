@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 })
 
 export class CreateCourseComponent implements OnInit{
-  @Output() sender: EventEmitter<any> = new EventEmitter();
+  // @Output() sender: EventEmitter<any> = new EventEmitter();
     title: String = "Crear nuevo curso";
 
     courseForm!: FormGroup;

@@ -8,7 +8,7 @@ import { CreateCourseComponent } from './components/createCourse/createCourse.co
 import { CourseComponent } from './components/course/course.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { AdminService } from './services/admin.service';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   {path: "home", component: AppComponent},
@@ -28,7 +28,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
   providers: [
     AdminService,

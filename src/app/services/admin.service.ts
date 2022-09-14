@@ -13,8 +13,8 @@ export class AdminService {
     this.apiUrl = "https://my-json-server.typicode.com";
   }
 
-  getStudent(): Observable<any>{
-    let url = this.apiUrl + "/queturotre/cremedi/credits";
+  getCourseData(): Observable<any>{
+    let url = this.apiUrl + "/queturotre/cursosCres/cursos";
     return this.http.get(url);
   }
 }

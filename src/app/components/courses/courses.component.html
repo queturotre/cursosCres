@@ -3,9 +3,9 @@
     <!-- Mostrar los cursos que se vayan creando -->
     <a routerLink="/curso">
       <section *ngFor="let course of courses; let i = index" class="headera">
-        <span><b>Grade: </b></span>{{ course.grado }}<br>
-        <span><b>Course: </b></span>{{ course.curso }}<br>
-        <span><b>NRC: </b></span>{{ course.nrc }}<br>
+        <span><b>Grade: </b></span> course.grado <br>
+        <span><b>Course: </b></span> course.curso <br>
+        <span><b>NRC: </b></span> course.nrc <br>
       </section> <br>
     </a>
 
