@@ -5,70 +5,68 @@
     <span>Course: </span><b>{{ curso }}</b><br>
   </header> <br>
 
-  <div class="table">
-    <div class="container text-center">
-      <div class="row">
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Nombre</b></div>
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Apellido</b></div>
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Cres</b></div>
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Sumar</b></div>
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Restar</b></div>
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Eliminar</b></div>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Nombre</b></div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Apellido</b></div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Cres</b></div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Sumar</b></div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Restar</b></div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Eliminar</b></div>
+    </div>
+    <div class="row" *ngFor="let estudiante of estudiantes; let i = index">
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ estudiante.nombre }}</div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ estudiante.apellido }}</div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ estudiante.cres }}</div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">
+        <img src="../../../assets/icons/plus.png" class="plus-icon"
+            alt="Aumentar Cre" (click)="addCre(i)">
       </div>
-      <div class="row" *ngFor="let estudiante of estudiantes; let i = index">
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ estudiante.nombre }}</div>
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ estudiante.apellido }}</div>
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ estudiante.cres }}</div>
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2">
-          <button (click)="addCre(i)"><img src="../../../assets/icons/plus.png" class="plus-icon"
-              alt="Aumentar Cre"></button>
-        </div>
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2">
-          <button (click)="diminishCre(i)"><img src="../../../assets/icons/minus.png" class="minus-icon"
-              alt="Disminuir Cre"></button>
-        </div>
-        <div class="col-2 col-xs-2 col-sm-2 col-md-2">
-          <button (click)="deleteStudent(i)"><img src="../../../assets/icons/trash-can.png" class="trash-can-icon"
-              alt="Ícono Basura" /></button>
-        </div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">
+        <img src="../../../assets/icons/minus.png" class="minus-icon"
+            alt="Disminuir Cre" (click)="diminishCre(i)">
+      </div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">
+        <img src="../../../assets/icons/trash-can.png" class="trash-can-icon"
+            alt="Ícono Basura" (click)="deleteStudent(i)" />
       </div>
     </div>
+  </div>
 
-    <br><br>
-    <footer>
-      <button (click)="showForm()" class="btn btn-primary">Añadir Estudiante</button>
-      <button class="btn btn-primary">Guardar Cres</button>
-      <button routerLink="/cursos" class="btn btn-primary">Atrás</button>
-    </footer>
+  <br><br>
+  <footer>
+    <button (click)="showForm()" class="btn btn-primary">Añadir Estudiante</button>
+    <button class="btn btn-primary">Guardar Cres</button>
+    <button routerLink="/cursos" class="btn btn-primary">Atrás</button>
+  </footer>
 
-    <div class="form" *ngIf="showStudentFormView">
-      <form [formGroup]="studentForm">
-        <label for="">Nombre</label><br>
-        <div class="input">
-          <input type="text" formControlName="nombre" /><br>
-          <div *ngIf="studentForm.controls['nombre'].hasError('required') && studentForm.controls['nombre'].touched">
-            Requerido</div>
-        </div>
+  <div class="form" *ngIf="showStudentFormView">
+    <form [formGroup]="studentForm">
+      <label for="">Nombre</label><br>
+      <div class="input">
+        <input type="text" formControlName="nombre" /><br>
+        <div *ngIf="studentForm.controls['nombre'].hasError('required') && studentForm.controls['nombre'].touched">
+          Requerido</div>
+      </div>
 
-        <label for="">Apellido</label><br>
-        <div class="input">
-          <input type="text" formControlName="apellido"><br>
-          <div
-            *ngIf="studentForm.controls['apellido'].hasError('required') && studentForm.controls['apellido'].touched">
-            Requerido</div>
-        </div>
+      <label for="">Apellido</label><br>
+      <div class="input">
+        <input type="text" formControlName="apellido"><br>
+        <div
+          *ngIf="studentForm.controls['apellido'].hasError('required') && studentForm.controls['apellido'].touched">
+          Requerido</div>
+      </div>
 
-        <label for="">cres</label><br>
-        <div class="input">
-          <input type="number" formControlName="cres"><br>
-          <div *ngIf="studentForm.controls['cres'].hasError('required') && studentForm.controls['cres'].touched">
-            Requerido</div>
-        </div>
+      <label for="">cres</label><br>
+      <div class="input">
+        <input type="number" formControlName="cres"><br>
+        <div *ngIf="studentForm.controls['cres'].hasError('required') && studentForm.controls['cres'].touched">
+          Requerido</div>
+      </div>
 
-        <button type="button" (click)="collectStudentData(studentForm.value)" class="btn btn-primary">Crear
-          Estudiante</button>
-        <button type="button" (click)="showForm()" class="btn btn-primary">Cancelar</button>
-      </form>
-    </div>
+      <button type="button" (click)="collectStudentData(studentForm.value)" class="btn btn-primary">Crear
+        Estudiante</button>
+      <button type="button" (click)="showForm()" class="btn btn-primary">Cancelar</button>
+    </form>
   </div>
 </div>

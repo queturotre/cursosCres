@@ -1,11 +1,11 @@
 <div class="container">
   <h1>Cursos</h1>
   <!-- Mostrar los cursos que se vayan creando -->
-  <section *ngFor="let course of courses; let i = index" class="headera row">
-    <span class="col col-sm col-md col-lg"><b>NRC: </b></span> {{ course.nrc }}
-    <span class="col col-sm col-md col-lg"><b>Grado: </b></span> {{ course.grado }}
-    <span class="col col-sm col-md col-lg"><b>Curso: </b></span> {{ course.curso }}
-    <a class="col col-sm col-md col-lg" routerLink="/curso/1">Entrar</a>
+  <section *ngFor="let course of courses; let i = index" class="row headera">
+    <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">NRC: {{ course.nrc }}</b>
+    <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">Grado: {{ course.grado }}</b>
+    <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">Curso: {{ course.curso }}</b>
+    <button class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-info btn" routerLink="/curso/1">Entrar</button>
   </section> <br>
 
   <button class="btn btn-primary" routerLink="/curso/2">Menú</button>

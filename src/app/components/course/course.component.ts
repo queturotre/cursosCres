@@ -11,16 +11,6 @@ export class CourseComponent implements OnInit {
   showStudentFormView = false;
   nrc = ''; grado = ''; curso = '';
 
-  dataHead = {
-    nrc: 0,
-    grado: 0,
-    curso: 0
-  }
-  dataEstudiante = {
-    nombre: '',
-    edad: 0
-  }
-
   studentForm!: FormGroup;
 
   myCres: number = 0;
@@ -49,11 +39,6 @@ export class CourseComponent implements OnInit {
     );
   }
 
-
-  ngAfterViewInit() {
-    // this.myCres = document.getElementById("myCres");
-  }
-
   buildForms() {
     this.studentForm = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -62,9 +47,6 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  // onKeyUp(event: any){
-  //   this.myCres += event.target.value;
-  // }
   addCre(i: any) {
     this.estudiantes[i].cres += 1;
   }
@@ -76,6 +58,7 @@ export class CourseComponent implements OnInit {
   deleteStudent(i: any) {
     this.estudiantes.splice(i, 1);
   }
+
   showForm() {
     this.showStudentFormView = !this.showStudentFormView;
   }
