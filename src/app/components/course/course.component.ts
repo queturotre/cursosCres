@@ -27,7 +27,7 @@ export class CourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForms();
-    this.getInitialData();
+    this.getCoursesData();
   }
 
   buildForms() {
@@ -38,25 +38,36 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  getInitialData() {
+  getCoursesData() {
     this.adminService.getCourseData().subscribe(
       (resp) => {
         let tree = resp;
-        tree.forEach((estudiante: any) => {
-          this.estudiantes.push(estudiante);
+        tree.map((curso: any) => {
+          this.courses.push(curso);
         });
+
+        this.courses.map((estudiante: any) => {
+          this.estudiantes.push(estudiante.estudiantes)
+        });
+        console.log("Estudiantes: ");
+        console.log(this.estudiantes);
       }
     );
-    // this.assignStudentsData();
+
+    // this.getStudentsData();
   }
 
-  assignStudentsData() {
-    this.estudiantes.forEach((estudiante) => {
-      this.estudiantes.push(estudiante);
-    });
-    console.log("Estos son los estudiantes ¿sí?");
-    console.log(this.estudiantes);
-  }
+  // getStudentsData() {
+  //   this.adminService.getCourseData().subscribe(
+  //     (resp) => {
+  //       let tree = resp.estudiantes;
+  //       tree.forEach((estudiante: any) => {
+  //         this.estudiantes.push(estudiante);
+  //       });
+  //     }
+  //   );
+  //   console.log(this.estudiantes);
+  // }
 
   addCre(i: any) {
     this.estudiantes[i].cres += 1;

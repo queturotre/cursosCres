@@ -21,6 +21,7 @@ export class CoursesComponent implements OnInit {
   }
 
   courseForm!: FormGroup;
+  i!: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +32,7 @@ export class CoursesComponent implements OnInit {
   ngOnInit(): void {
     this.buildForms();
     this.getInitialData();
-    console.log("Course id is: ", this.route.snapshot.paramMap.get('id'));
+    this.i = this.route.snapshot.params['id'];
   }
 
   buildForms() {
@@ -58,12 +59,12 @@ export class CoursesComponent implements OnInit {
     this.adminService.getCourseData().subscribe(
       (resp) => {
         let tree = resp;
-        for (let i = 0; i < tree.length; i++){
-          this.courses.push(tree[i]);
-        }
+        tree.map((curso: any) => {
+          this.courses.push(curso);
+        });
 
-        console.log("Estos son los cursos, sí?");
-        console.log(this.courses);
+        // console.log("Estos son los estudiantes del primer curso, sí?");
+        // console.log(this.courses[0].estudiantes);
       }
     );
   }
@@ -75,7 +76,7 @@ export class CoursesComponent implements OnInit {
   }
 
   addCourse() {
-    this.courses.push();
+    this.courses.push(); // Hay que hacer que si el curso ya existe no se puede repetir.
   }
 
   toggleForm() {
