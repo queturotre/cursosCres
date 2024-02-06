@@ -5,7 +5,7 @@
     <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">NRC: {{ course.nrc }}</b>
     <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">Grado: {{ course.grado }}</b>
     <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">Curso: {{ course.curso }}</b>
-    <button class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-info btn" routerLink="/curso/1">Entrar</button>
+    <button class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-info btn" [routerLink]="['/curso',i]">Entrar</button>
   </section> <br>
 
   <button class="btn btn-primary" routerLink="/">Menú</button>
@@ -22,26 +22,29 @@
 
       <label for="">Grado</label><br>
       <div class="input">
-        <input type="text" formControlName="grado"><br>
+        <input type="number" formControlName="grado"><br>
         <div *ngIf="courseForm.controls['grado'].hasError('required') && courseForm.controls['grado'].touched">Requerido
         </div>
         <div *ngIf="courseForm.controls['grado'].hasError('max') && courseForm.controls['grado'].touched">Máximo 11
         </div>
-        <div *ngIf="courseForm.controls['grado'].hasError('min') && courseForm.controls['grado'].touched">Mínimo 1</div>
+        <div *ngIf="courseForm.controls['grado'].hasError('min') && courseForm.controls['grado'].touched">Mínimo 1
+        </div>
+        <div *ngIf="courseForm.controls['grado'].hasError('min') && courseForm.controls['grado'].touched">Mínimo 1
+        </div>
       </div>
 
       <label for="">Curso</label><br>
       <div class="input">
-        <input type="text" formControlName="curso"><br>
+        <input type="number" formControlName="curso"><br>
         <div *ngIf="courseForm.controls['curso'].hasError('required') && courseForm.controls['curso'].touched">Requerido
         </div>
         <div *ngIf="courseForm.controls['curso'].hasError('max') && courseForm.controls['curso'].touched">Máximo 5</div>
         <div *ngIf="courseForm.controls['curso'].hasError('min') && courseForm.controls['curso'].touched">Mínimo 1</div>
       </div>
-    </form>
 
-    <button routerLink="/cursos" type="button" (click)="saveCourseData(courseForm.value)"
+      <button routerLink="/cursos" type="button" (click)="saveCourseData(courseForm.value)"
       class="btn btn-primary">Crear</button>
-    <button (click)="toggleForm()" class="btn btn-primary">Cancelar</button>
+      <button (click)="toggleForm()" class="btn btn-primary">Cancelar</button>
+    </form>
   </div>
 </div>

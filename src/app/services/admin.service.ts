@@ -19,4 +19,9 @@ export class AdminService {
     // let url = this.apiUrl + "/courses";
     return this.http.get(url);
   }
+
+  saveStudentData(payload: any): Observable<any>{
+    let url = this.apiUrl + "/save-student";
+    return this.http.post(url, payload);
+  }
 }

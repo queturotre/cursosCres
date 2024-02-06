@@ -41,7 +41,7 @@ export class CoursesComponent implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.min(1),
-          Validators.max(11),
+          Validators.max(11)
         ])
       ],
       curso: ['',
@@ -58,9 +58,12 @@ export class CoursesComponent implements OnInit {
     this.adminService.getCourseData().subscribe(
       (resp) => {
         let tree = resp;
-        this.courses = tree;
-        console.log(this.courses[0]);
-        this.assignData();
+        for (let i = 0; i < tree.length; i++){
+          this.courses.push(tree[i]);
+        }
+
+        console.log("Estos son los cursos, sí?");
+        console.log(this.courses);
       }
     );
   }
@@ -80,6 +83,9 @@ export class CoursesComponent implements OnInit {
   }
 
   saveCourseData(values: any) {
+    this.courseForm.markAllAsTouched();
+    if (this.courseForm.invalid) return;
+
     this.courses.push(values);
     console.log(this.courses);
     this.toggleForm();

@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { CreateCourseComponent } from './components/createCourse/createCourse.component';
-import { CourseComponent } from './components/course/course.component';
+import { CourseComponent } from "./components/course/course.component";
 import { CoursesComponent } from './components/courses/courses.component';
 import { AdminService } from './services/admin.service';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';

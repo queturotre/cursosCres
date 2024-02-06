@@ -1,12 +1,14 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AdminService } from "src/app/services/admin.service";
+
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css'],
 })
+
 export class CourseComponent implements OnInit {
   showStudentFormView = false;
   nrc = ''; grado = ''; curso = '';
@@ -15,28 +17,17 @@ export class CourseComponent implements OnInit {
 
   myCres: number = 0;
 
+  courses: any[] = [];
   estudiantes: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private adminService: AdminService,
+    private adminService: AdminService
   ) { }
 
   ngOnInit(): void {
     this.buildForms();
     this.getInitialData();
-  }
-
-  getInitialData() {
-    this.adminService.getCourseData().subscribe(
-      (res) => {
-        let tree = res;
-        this.nrc = tree[2].nrc;
-        this.grado = tree[2].grado;
-        this.curso = tree[2].curso;
-        this.estudiantes = tree[2].estudiantes;
-      }
-    );
   }
 
   buildForms() {
@@ -45,6 +36,26 @@ export class CourseComponent implements OnInit {
       apellido: ['', Validators.required],
       cres: ['', Validators.required],
     });
+  }
+
+  getInitialData() {
+    this.adminService.getCourseData().subscribe(
+      (resp) => {
+        let tree = resp;
+        tree.forEach((estudiante: any) => {
+          this.estudiantes.push(estudiante);
+        });
+      }
+    );
+    // this.assignStudentsData();
+  }
+
+  assignStudentsData() {
+    this.estudiantes.forEach((estudiante) => {
+      this.estudiantes.push(estudiante);
+    });
+    console.log("Estos son los estudiantes ¿sí?");
+    console.log(this.estudiantes);
   }
 
   addCre(i: any) {
@@ -64,6 +75,9 @@ export class CourseComponent implements OnInit {
   }
 
   collectStudentData(values: any) {
+    this.studentForm.markAllAsTouched();
+    if (this.studentForm.invalid) return;
+
     this.showForm();
     this.estudiantes.push(values);
   }
