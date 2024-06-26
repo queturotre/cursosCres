@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { AdminService } from "src/app/services/admin.service";
 // import { CourseData } from "src/app/models/courseData";
 
@@ -15,19 +15,16 @@ export class CoursesComponent implements OnInit {
   showForm: boolean = false;
 
   courses: any = [];
-  coursesData: any = {
-    nrc: '',
-    level: '',
-    course: ''
-  }
+  estudiantes: any = [];
 
   courseForm!: FormGroup;
-  i!: number;
+  i!: number; // Esto se usa para obtener el index de la url cursos/i
 
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -64,16 +61,17 @@ export class CoursesComponent implements OnInit {
           this.courses.push(curso);
         });
 
-        // console.log("Estos son los estudiantes del primer curso, sí?");
-        // console.log(this.courses[0].estudiantes);
+        for(let i = 0; i < this.courses.length; i++){
+          this.estudiantes.push = this.courses[i].estudiantes;
+        }
+        console.log("Estos son los estudiantes del primer curso, sí?");
+        console.log(this.estudiantes);
       }
     );
   }
 
-  assignData() {
-    this.coursesData.nrc = this.courses[0].nrc;
-    this.coursesData.level = this.courses[0].grado;
-    this.coursesData.course = this.courses[0].curso;
+  sendToCourse(){
+    this.router.navigate(['app-course', { data: this.estudiantes}]);
   }
 
   addCourse() {
@@ -82,6 +80,7 @@ export class CoursesComponent implements OnInit {
 
   toggleForm() {
     this.showForm = !this.showForm;
+    this.courseForm.reset();
   }
 
   saveCourseData(values: any) {

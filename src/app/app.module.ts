@@ -34,6 +34,8 @@ const appRoutes: Routes = [
     AdminService,
     HttpClient,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [RouterModule]
 })
+
 export class AppModule { }

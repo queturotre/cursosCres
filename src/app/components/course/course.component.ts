@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AdminService } from "src/app/services/admin.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 
 @Component({
@@ -11,7 +12,8 @@ import { AdminService } from "src/app/services/admin.service";
 
 export class CourseComponent implements OnInit {
   showStudentFormView = false;
-  nrc = ''; grado = ''; curso = '';
+  // nrc = ''; grado = ''; curso = '';
+  receivedCourses: any = []
 
   studentForm!: FormGroup;
 
@@ -22,12 +24,14 @@ export class CourseComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.buildForms();
-    this.getCoursesData();
+    // this.getCoursesData();
+    this.receiveData();
   }
 
   buildForms() {
@@ -38,24 +42,24 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  getCoursesData() {
-    this.adminService.getCourseData().subscribe(
-      (resp) => {
-        let tree = resp;
-        tree.map((curso: any) => {
-          this.courses.push(curso);
-        });
+  // getCoursesData() {
+  //   this.adminService.getCourseData().subscribe(
+  //     (resp) => {
+  //       let tree = resp;
+  //       tree.map((curso: any) => {
+  //         this.courses.push(curso);
+  //       });
 
-        this.courses.map((estudiante: any) => {
-          this.estudiantes.push(estudiante.estudiantes)
-        });
-        console.log("Estudiantes: ");
-        console.log(this.estudiantes);
-      }
-    );
+  //       this.courses.map((estudiante: any) => {
+  //         this.estudiantes.push(estudiante.estudiantes)
+  //       });
+  //       console.log("Estudiantes: ");
+  //       console.log(this.estudiantes);
+  //     }
+  //   );
 
-    // this.getStudentsData();
-  }
+  //   // this.getStudentsData();
+  // }
 
   // getStudentsData() {
   //   this.adminService.getCourseData().subscribe(
@@ -68,6 +72,10 @@ export class CourseComponent implements OnInit {
   //   );
   //   console.log(this.estudiantes);
   // }
+
+  receiveData(){
+    this.receivedCourses = this.route.snapshot.paramMap.get('data');
+  }
 
   addCre(i: any) {
     this.estudiantes[i].cres += 1;
@@ -83,6 +91,8 @@ export class CourseComponent implements OnInit {
 
   showForm() {
     this.showStudentFormView = !this.showStudentFormView;
+    this.studentForm.reset();
+    console.log(this.receivedCourses);
   }
 
   collectStudentData(values: any) {
