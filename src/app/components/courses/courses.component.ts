@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute } from "@angular/router";
 import { AdminService } from "src/app/services/admin.service";
+// import { CourseData } from "src/app/models/courseData";
 
 @Component({
   selector: 'app-courses',
@@ -14,7 +15,7 @@ export class CoursesComponent implements OnInit {
   showForm: boolean = false;
 
   courses: any = [];
-  courseData: any = {
+  coursesData: any = {
     nrc: '',
     level: '',
     course: ''
@@ -70,9 +71,9 @@ export class CoursesComponent implements OnInit {
   }
 
   assignData() {
-    this.courseData.nrc = this.courses[0].nrc;
-    this.courseData.level = this.courses[0].grado;
-    this.courseData.course = this.courses[0].curso;
+    this.coursesData.nrc = this.courses[0].nrc;
+    this.coursesData.level = this.courses[0].grado;
+    this.coursesData.course = this.courses[0].curso;
   }
 
   addCourse() {
