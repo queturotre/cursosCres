@@ -1,8 +1,8 @@
-<div class="container">
+<div *ngIf="course" class="container">
   <header class="headera">
-    <!-- <span>Nrc: </span><b>{{ nrc }}</b><br>
-    <span>Grade: </span><b>{{ grado }}</b><br>
-    <span>Course: </span><b>{{ curso }}</b><br> -->
+    <span>Nrc: </span><b>{{ course.nrc }}</b><br>
+    <span>Grade: </span><b>{{ course.grado }}</b><br>
+    <span>Course: </span><b>{{ course.curso }}</b><br>
   </header> <br>
 
   <div class="container text-center">
@@ -14,10 +14,10 @@
       <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Restar</b></div>
       <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Eliminar</b></div>
     </div>
-    <div class="row" *ngFor="let estudiante of estudiantes; let i = index">
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ estudiante.nombre }}</div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ estudiante.apellido }}</div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ estudiante.cres }}</div>
+    <div class="row" *ngFor="let student of course.estudiantes; let i = index">
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.nombre }}</div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.apellido }}</div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.cres }}</div>
       <div class="col-2 col-xs-2 col-sm-2 col-md-2">
         <img src="../../../assets/icons/plus.png" class="icon"
             alt="Aumentar Cre" (click)="addCre(i)">
@@ -41,7 +41,7 @@
   </footer>
 
   <div class="form" *ngIf="showStudentFormView">
-    <form [formGroup]="studentForm">
+    <form [formGroup]="studentForm" (ngSubmit)="addStudent()">
       <label for="">Nombre</label><br>
       <div class="input">
         <input type="text" formControlName="nombre" /><br>
@@ -62,10 +62,11 @@
         <input type="number" formControlName="cres"><br>
         <div *ngIf="studentForm.controls['cres'].hasError('required') && studentForm.controls['cres'].touched">
           Requerido</div>
+        <div *ngIf="studentForm.controls['cres'].hasError('min')">
+          Mínimo 0 puntos</div>
       </div>
 
-      <button type="button" (click)="collectStudentData(studentForm.value)" class="btn btn-primary">Crear
-        Estudiante</button>
+      <button type="submit" class="btn btn-primary">Crear Estudiante</button>
       <button type="button" (click)="showForm()" class="btn btn-primary">Cancelar</button>
     </form>
   </div>

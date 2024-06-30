@@ -8,21 +8,3 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
 }
-
-// title = 'cursos';
-// PAGES = {
-//   MENU:"menu",
-//   COURSES: "courses",
-//   CREATE_COURSE: "create-course"
-// }
-// currentPage = this.PAGES.MENU;
-
-// goCreateCourse(){
-//   this.title = "Crear Curso";
-//   this.currentPage = this.PAGES.CREATE_COURSE;
-// }
-
-// goToCourses(){
-//   this.currentPage = this.PAGES.COURSES;
-//   this.title = 'Cursos';
-// }

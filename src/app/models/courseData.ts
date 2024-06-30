@@ -1,6 +1,12 @@
-export class CourseData {
-  // nrc: string | undefined;
-  // grado: Number | undefined;
-  // curso!: Number;
-  // estudiantes!: any[];
+export interface Course {
+  nrc: string;
+  grado: string;
+  curso: string;
+  estudiantes: Students[];
+}
+
+export interface Students {
+  nombre: string;
+  apellido: string;
+  cres: number;
 }

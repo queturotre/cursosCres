@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
 import { AdminService } from "src/app/services/admin.service";
-// import { CourseData } from "src/app/models/courseData";
+import { Course } from "src/app/models/courseData";
 
 @Component({
   selector: 'app-courses',
@@ -11,21 +11,19 @@ import { AdminService } from "src/app/services/admin.service";
 })
 
 export class CoursesComponent implements OnInit {
-
-  showForm: boolean = false;
-
-  courses: any = [];
-  estudiantes: any = [];
-
-  courseForm!: FormGroup;
-  i!: number; // Esto se usa para obtener el index de la url cursos/i
-
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
+
+  showForm: boolean = false;
+  courseForm!: FormGroup;
+  i!: number; // Esto se usa para obtener el index de la url cursos/i
+
+  courses: Course[] = [];
+  selectedCourse: Course | null = null;
 
   ngOnInit(): void {
     this.buildForms();
@@ -57,30 +55,19 @@ export class CoursesComponent implements OnInit {
     this.adminService.getCourseData().subscribe(
       (resp) => {
         let tree = resp;
-        tree.map((curso: any) => {
-          this.courses.push(curso);
+        tree.map((course: Course) => {
+          this.courses.push(course);
         });
-
-        for(let i = 0; i < this.courses.length; i++){
-          this.estudiantes.push = this.courses[i].estudiantes;
-        }
-        console.log("Estos son los estudiantes del primer curso, sí?");
-        console.log(this.estudiantes);
       }
     );
   }
 
-  sendToCourse(){
-    this.router.navigate(['app-course', { data: this.estudiantes}]);
+  addCourse(newCourse: Course) {
+    this.courses.push(newCourse); // Hay que hacer que si el curso ya existe no se puede repetir.
   }
 
-  addCourse() {
-    this.courses.push(); // Hay que hacer que si el curso ya existe no se puede repetir.
-  }
-
-  toggleForm() {
-    this.showForm = !this.showForm;
-    this.courseForm.reset();
+  selectCourse(course: Course){
+    this.selectedCourse = course;
   }
 
   saveCourseData(values: any) {
@@ -90,5 +77,10 @@ export class CoursesComponent implements OnInit {
     this.courses.push(values);
     console.log(this.courses);
     this.toggleForm();
+  }
+
+  toggleForm() {
+    this.showForm = !this.showForm;
+    this.courseForm.reset();
   }
 }
