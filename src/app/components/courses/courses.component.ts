@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
-import { AdminService } from "src/app/services/admin.service";
+import { CoursesService } from "src/app/services/courses.service";
 import { Course } from "src/app/models/courseData";
 
 @Component({
@@ -13,7 +13,7 @@ import { Course } from "src/app/models/courseData";
 export class CoursesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
-    private adminService: AdminService,
+    private coursesService: CoursesService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -52,7 +52,7 @@ export class CoursesComponent implements OnInit {
   }
 
   getInitialData() {
-    this.adminService.getCourseData().subscribe(
+    this.coursesService.getCoursesData().subscribe(
       (resp) => {
         let tree = resp;
         tree.map((course: Course) => {

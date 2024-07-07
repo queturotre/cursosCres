@@ -1,11 +1,11 @@
 <div class="container">
   <h1>Cursos</h1>
   <!-- Mostrar los cursos que se vayan creando -->
-  <section *ngFor="let course of courses; let i = index" class="row headera" (click)="selectCourse(course)">
+  <section *ngFor="let course of courses; let i = index" class="row headera">
     <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">NRC: {{ course.nrc }}</b>
     <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">Grado: {{ course.grado }}</b>
     <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">Curso: {{ course.curso }}</b>
-    <button class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-info btn" [routerLink]="['/curso',i]" (click)="selectCourse(course)">Entrar</button>
+    <button class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-info btn" (click)="selectCourse(course)">Entrar</button>
   </section> <br>
 
   <app-course [course]="selectedCourse" *ngIf="selectedCourse"></app-course>

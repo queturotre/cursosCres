@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Course } from "src/app/models/courseData";
+import { StudentsService } from "src/app/services/students.service";
 
 @Component({
   selector: 'app-course',
@@ -15,11 +16,17 @@ export class CourseComponent implements OnInit {
   showStudentFormView = false;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private studentsService: StudentsService
   ) { }
 
   ngOnInit(): void {
     this.buildForms();
+    this.getInitialData();
+  }
+
+  getInitialData(){
+
   }
 
   buildForms() {
@@ -49,6 +56,10 @@ export class CourseComponent implements OnInit {
 
   diminishCre(i: number) {
     this.course.estudiantes[i].cres -= 1;
+  }
+
+  saveCres(cres: number){
+    console.log(cres);
   }
 
   deleteStudent(i: number) {

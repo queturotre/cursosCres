@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { CreateCourseComponent } from './components/createCourse/createCourse.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { CourseComponent } from "./components/courses/course/course.component";
-import { AdminService } from './services/admin.service';
+import { CoursesService } from './services/courses.service';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
@@ -31,7 +31,7 @@ const appRoutes: Routes = [
     HttpClientModule
   ],
   providers: [
-    AdminService,
+    CoursesService,
     HttpClient,
   ],
   bootstrap: [AppComponent],
