@@ -17,7 +17,7 @@
     <form [formGroup]="courseForm">
       <label for="">NRC</label><br>
       <div class="input">
-        <input type="text" formControlName="nrc" /><br>
+        <input type="number" formControlName="nrc" /><br>
         <div *ngIf="courseForm.controls['nrc'].hasError('required') && courseForm.controls['nrc'].touched">Requerido
         </div>
       </div>

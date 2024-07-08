@@ -19,11 +19,6 @@ export class StudentsService {
     return this.http.get(url);
   }
 
-  getStudentById(id: any): Observable<any> {
-    let url = `${this.apiUrl}/estudiantes/${id}`;
-    return this.http.get(url);
-  }
-
   getStudentsByCourse(nrc: any): Observable<any> {
     let url = `${this.apiUrl}/estudiantes/nrc/${nrc}`;
     return this.http.get(url);

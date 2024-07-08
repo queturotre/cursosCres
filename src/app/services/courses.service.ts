@@ -19,11 +19,6 @@ export class CoursesService {
     return this.http.get(url);
   }
 
-  getSingleCourseData(nrc: any): Observable<any> {
-    let url = `${this.apiUrl}/cursos/${nrc}`;
-    return this.http.get(url);
-  }
-
   addCourse(payload: Course): Observable<any> {
     let url = `${this.apiUrl}/cursos`
     return this.http.post(url, payload);
