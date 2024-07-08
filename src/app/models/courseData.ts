@@ -4,7 +4,7 @@ export interface Course {
   curso: string;
 }
 
-export interface Students {
+export interface Student {
   id?: number;
   nombre: string;
   apellido: string;

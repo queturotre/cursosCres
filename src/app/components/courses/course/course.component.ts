@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Course, Students } from "src/app/models/courseData";
+import { Course, Student } from "src/app/models/courseData";
 import { CoursesService } from "src/app/services/courses.service";
 import { StudentsService } from "src/app/services/students.service";
 
@@ -12,7 +12,7 @@ import { StudentsService } from "src/app/services/students.service";
 
 export class CourseComponent implements OnInit {
   @Input() course!: Course;
-  @Input() students!: Students[];
+  @Input() students!: Student[];
   studentForm!: FormGroup;
 
   showStudentFormView = false;
@@ -43,7 +43,7 @@ export class CourseComponent implements OnInit {
     this.studentForm.markAllAsTouched();
     if (this.studentForm.invalid) return;
 
-    const newStudent: Students = {
+    const newStudent: Student = {
       nombre: this.studentForm.value.nombre,
       apellido: this.studentForm.value.apellido,
       cres: this.studentForm.value.cres,

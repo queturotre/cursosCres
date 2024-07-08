@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 import { CoursesService } from "src/app/services/courses.service";
 import { StudentsService } from "src/app/services/students.service";
-import { Course, Students } from "src/app/models/courseData";
+import { Course, Student } from "src/app/models/courseData";
 
 @Component({
   selector: 'app-courses',
@@ -22,7 +22,7 @@ export class CoursesComponent implements OnInit {
 
   courses: Course[] = [];
   selectedCourse: Course | null = null;
-  students: Students[] = [];
+  students: Student[] = [];
 
   ngOnInit(): void {
     this.buildForms();
@@ -39,13 +39,7 @@ export class CoursesComponent implements OnInit {
           Validators.max(11)
         ])
       ],
-      curso: ['',
-        Validators.compose([
-          Validators.required,
-          Validators.min(1),
-          Validators.max(5),
-        ])
-      ],
+      curso: ['', Validators.required]
     });
   }
 
@@ -60,13 +54,13 @@ export class CoursesComponent implements OnInit {
   selectCourse(course: Course){
     this.selectedCourse = course;
     this.studentsService.getStudentsByCourse(course.nrc).subscribe(
-      (resp) => {
-        this.students = resp;
+      (students: Student[]) => {
+        this.students = students;
       }
     );
   }
 
-  saveCourseData() {
+  addCourse() {
     this.courseForm.markAllAsTouched();
     if (this.courseForm.invalid) return;
 
@@ -80,9 +74,10 @@ export class CoursesComponent implements OnInit {
       (res) => {
         console.log('Course added successfully', res);
         this.toggleForm();
+        this.getInitialData();
       },
       (err) => {
-        console.error('Error al adding course', err);
+        console.error('Error adding course', err);
       }
     );
 
