@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Course } from '../models/courseData';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class CoursesService {
     return this.http.get(url);
   }
 
-  addCourse(payload: any): Observable<any> {
+  addCourse(payload: Course): Observable<any> {
     let url = `${this.apiUrl}/cursos`
     return this.http.post(url, payload);
   }

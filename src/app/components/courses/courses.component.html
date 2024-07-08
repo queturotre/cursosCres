@@ -8,7 +8,7 @@
     <button class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-info btn" (click)="selectCourse(course)">Entrar</button>
   </section> <br>
 
-  <app-course [course]="selectedCourse" *ngIf="selectedCourse"></app-course>
+  <app-course *ngIf="selectedCourse" [course]="selectedCourse" [students]="students"></app-course>
 
   <button class="btn" routerLink="/">Menú</button>
   <button class="btn btn-primary" (click)="toggleForm()">Crear Curso</button>
@@ -35,14 +35,12 @@
 
       <label for="">Curso</label><br>
       <div class="input">
-        <input type="number" formControlName="curso"><br>
+        <input type="text" formControlName="curso"><br>
         <div *ngIf="courseForm.controls['curso'].hasError('required') && courseForm.controls['curso'].touched">Requerido
         </div>
-        <div *ngIf="courseForm.controls['curso'].hasError('max') && courseForm.controls['curso'].touched">Máximo 5</div>
-        <div *ngIf="courseForm.controls['curso'].hasError('min') && courseForm.controls['curso'].touched">Mínimo 1</div>
       </div>
 
-      <button routerLink="/cursos" type="button" (click)="saveCourseData(courseForm.value)"
+      <button routerLink="/cursos" type="button" (click)="saveCourseData()"
       class="btn btn-primary">Crear</button>
       <button (click)="toggleForm()" class="btn btn-danger">Cancelar</button>
     </form>

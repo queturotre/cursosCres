@@ -14,21 +14,22 @@
       <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Restar</b></div>
       <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Eliminar</b></div>
     </div>
-    <div class="row" *ngFor="let student of course.estudiantes; let i = index">
+
+    <div class="row" *ngFor="let student of students; let i = index">
       <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.nombre }}</div>
       <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.apellido }}</div>
       <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.cres }}</div>
       <div class="col-2 col-xs-2 col-sm-2 col-md-2">
         <img src="../../../assets/icons/plus.png" class="icon"
-            alt="Aumentar Cre" (click)="addCre(i)">
+          alt="Aumentar Cre" (click)="addCre(i)">
       </div>
       <div class="col-2 col-xs-2 col-sm-2 col-md-2">
         <img src="../../../assets/icons/minus.png" class="icon"
-            alt="Disminuir Cre" (click)="diminishCre(i)">
+          alt="Disminuir Cre" (click)="diminishCre(i)">
       </div>
       <div class="col-2 col-xs-2 col-sm-2 col-md-2">
         <img src="../../../assets/icons/trash-can.png" class="icon"
-            alt="Ícono Basura" (click)="deleteStudent(i)" />
+          alt="Ícono Basura" (click)="deleteStudent(student.id, i)" />
       </div>
     </div>
   </div>
@@ -36,8 +37,9 @@
   <br><br>
   <footer>
     <button (click)="showForm()" class="btn btn-primary">Añadir Estudiante</button>
-    <button class="btn btn-primary">Guardar Cres</button>
-    <button routerLink="/cursos" class="btn btn-primary">Atrás</button>
+    <button (click)="saveCres()" class="btn btn-primary">Guardar Cres</button>
+    <button routerLink="/" class="btn btn-primary">Atrás</button>
+    <button (click)="deleteCourse()" class="btn btn-danger">Eliminar curso</button>
   </footer>
 
   <div class="form" *ngIf="showStudentFormView">
@@ -63,11 +65,13 @@
         <div *ngIf="studentForm.controls['cres'].hasError('required') && studentForm.controls['cres'].touched">
           Requerido</div>
         <div *ngIf="studentForm.controls['cres'].hasError('min')">
-          Mínimo 0 puntos</div>
+          Mínimo 0</div>
+        <div *ngIf="studentForm.controls['cres'].hasError('max')">
+          Máximo 5</div>
       </div>
 
       <button type="submit" class="btn btn-primary">Crear Estudiante</button>
-      <button type="button" (click)="showForm()" class="btn btn-primary">Cancelar</button>
+      <button type="button" (click)="showForm()" class="btn btn-danger">Cancelar</button>
     </form>
   </div>
 </div>

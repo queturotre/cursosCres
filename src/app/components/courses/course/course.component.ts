@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Course } from "src/app/models/courseData";
+import { Course, Students } from "src/app/models/courseData";
+import { CoursesService } from "src/app/services/courses.service";
 import { StudentsService } from "src/app/services/students.service";
 
 @Component({
@@ -11,22 +12,19 @@ import { StudentsService } from "src/app/services/students.service";
 
 export class CourseComponent implements OnInit {
   @Input() course!: Course;
+  @Input() students!: Students[];
   studentForm!: FormGroup;
 
   showStudentFormView = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private studentsService: StudentsService
+    private studentsService: StudentsService,
+    private coursesService: CoursesService
   ) { }
 
   ngOnInit(): void {
     this.buildForms();
-    this.getInitialData();
-  }
-
-  getInitialData(){
-
   }
 
   buildForms() {
@@ -35,7 +33,7 @@ export class CourseComponent implements OnInit {
       apellido: ['', Validators.required],
       cres: [0,
         Validators.compose([
-          Validators.required, Validators.min(0), Validators.max(10)
+          Validators.required, Validators.min(0), Validators.max(5)
         ])
       ],
     });
@@ -45,28 +43,72 @@ export class CourseComponent implements OnInit {
     this.studentForm.markAllAsTouched();
     if (this.studentForm.invalid) return;
 
-    this.showForm();
-    this.course.estudiantes.push(this.studentForm.value);
-    this.studentForm.reset({ cres: 0 });
+    const newStudent: Students = {
+      nombre: this.studentForm.value.nombre,
+      apellido: this.studentForm.value.apellido,
+      cres: this.studentForm.value.cres,
+      nrc: this.course.nrc
+    };
+
+    this.studentsService.addStudent(newStudent).subscribe(
+      (res) => {
+        console.log('Student added successfully ', res);
+        this.showForm();
+      },
+      (err) => {
+        console.error('Error adding student', err);
+      }
+    );
   }
 
   addCre(i: number) {
-    this.course.estudiantes[i].cres += 1;
+    this.students[i].cres += 1;
   }
 
   diminishCre(i: number) {
-    this.course.estudiantes[i].cres -= 1;
+    this.students[i].cres -= 1;
   }
 
-  saveCres(cres: number){
-    console.log(cres);
+  saveCres(){
+    this.students.forEach(student => {
+      this.studentsService.updateStudent(student).subscribe(
+        () => {
+          console.log(`${student.nombre} ${student.apellido} updated successfully`);
+        },
+        (error) => {
+          console.error(`Error updating student ${student.nombre} ${student.apellido}`, error);
+        }
+      );
+    });
   }
 
-  deleteStudent(i: number) {
-    this.course.estudiantes.splice(i, 1);
+  deleteStudent(id: any, i: number) {
+    this.students.splice(i, 1);
+    this.studentsService.deleteStudent(id).subscribe(
+      (res) => {
+        console.log(`Student deleted successfully`);
+        console.log(res);
+      },
+      (error) => {
+        console.error(`Error deleting student`, error);
+      }
+    );
+  }
+
+  deleteCourse(){
+    this.coursesService.deleteCourse(this.course.nrc).subscribe(
+      (res) => {
+        console.log(`The ENTIRE course has been deleted successfully`);
+        console.log(res);
+      },
+      (error) => {
+        console.error(`Error deleting course`, error);
+      }
+    );
   }
 
   showForm() {
     this.showStudentFormView = !this.showStudentFormView;
+    this.studentForm.reset();
   }
 }

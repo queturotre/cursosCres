@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
-import { ActivatedRoute, Router } from "@angular/router";
 import { CoursesService } from "src/app/services/courses.service";
-import { Course } from "src/app/models/courseData";
+import { StudentsService } from "src/app/services/students.service";
+import { Course, Students } from "src/app/models/courseData";
 
 @Component({
   selector: 'app-courses',
@@ -14,21 +14,19 @@ export class CoursesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private coursesService: CoursesService,
-    private route: ActivatedRoute,
-    private router: Router
+    private studentsService: StudentsService
   ) { }
 
   showForm: boolean = false;
   courseForm!: FormGroup;
-  i!: number; // Esto se usa para obtener el index de la url cursos/i
 
   courses: Course[] = [];
   selectedCourse: Course | null = null;
+  students: Students[] = [];
 
   ngOnInit(): void {
     this.buildForms();
     this.getInitialData();
-    this.i = this.route.snapshot.params['id'];
   }
 
   buildForms() {
@@ -54,28 +52,40 @@ export class CoursesComponent implements OnInit {
   getInitialData() {
     this.coursesService.getCoursesData().subscribe(
       (resp) => {
-        let tree = resp;
-        tree.map((course: Course) => {
-          this.courses.push(course);
-        });
+        this.courses = resp;
       }
     );
   }
 
-  addCourse(newCourse: Course) {
-    this.courses.push(newCourse); // Hay que hacer que si el curso ya existe no se puede repetir.
-  }
-
   selectCourse(course: Course){
     this.selectedCourse = course;
+    this.studentsService.getStudentsByCourse(course.nrc).subscribe(
+      (resp) => {
+        this.students = resp;
+      }
+    );
   }
 
-  saveCourseData(values: any) {
+  saveCourseData() {
     this.courseForm.markAllAsTouched();
     if (this.courseForm.invalid) return;
 
-    this.courses.push(values);
-    console.log(this.courses);
+    const newCourse: Course = {
+      nrc: this.courseForm.value.nrc,
+      grado: this.courseForm.value.grado,
+      curso: this.courseForm.value.curso,
+    };
+
+    this.coursesService.addCourse(newCourse).subscribe(
+      (res) => {
+        console.log('Course added successfully', res);
+        this.toggleForm();
+      },
+      (err) => {
+        console.error('Error al adding course', err);
+      }
+    );
+
     this.toggleForm();
   }
 
