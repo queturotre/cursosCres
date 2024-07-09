@@ -12,8 +12,8 @@ import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http'
 
 const appRoutes: Routes = [
   {path: "home", component: AppComponent},
-  {path: "cursos", component: CoursesComponent},
-  {path: "curso/:id", component: CourseComponent},
+  {path: "courses", component: CoursesComponent},
+  {path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

@@ -27,7 +27,7 @@ export class CourseComponent implements OnInit {
     this.buildForms();
   }
 
-  buildForms() {
+  buildForms(): void {
     this.studentForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -75,8 +75,8 @@ export class CourseComponent implements OnInit {
         () => {
           console.log(`${student.nombre} ${student.apellido} updated successfully`);
         },
-        (error) => {
-          console.error(`Error updating student ${student.nombre} ${student.apellido}`, error);
+        (err) => {
+          console.error(`Error updating student ${student.nombre} ${student.apellido}`, err);
         }
       );
     });
@@ -85,30 +85,30 @@ export class CourseComponent implements OnInit {
   deleteStudent(id: any, i: number) {
     this.students.splice(i, 1);
     this.studentsService.deleteStudent(id).subscribe(
-      (res) => {
+      () => {
         console.log(`Student deleted successfully`);
-        console.log(res);
       },
-      (error) => {
-        console.error(`Error deleting student`, error);
+      (err) => {
+        console.error(`Error deleting student`, err);
       }
     );
   }
 
   deleteCourse(){
     this.coursesService.deleteCourse(this.course.nrc).subscribe(
-      (res) => {
+      () => {
         console.log(`The ENTIRE course has been deleted successfully`);
-        console.log(res);
       },
-      (error) => {
-        console.error(`Error deleting course`, error);
+      (err) => {
+        console.error(`Error deleting course`, err);
       }
     );
   }
 
   showForm() {
     this.showStudentFormView = !this.showStudentFormView;
-    this.studentForm.reset();
+    if (!this.showStudentFormView){
+      this.studentForm.reset();
+    }
   }
 }

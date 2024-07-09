@@ -1,5 +1,5 @@
 <div *ngIf="course" class="container">
-  <header class="headera">
+  <header>
     <span>Nrc: </span><b>{{ course.nrc }}</b><br>
     <span>Grade: </span><b>{{ course.grado }}</b><br>
     <span>Course: </span><b>{{ course.curso }}</b><br>
@@ -15,8 +15,15 @@
       <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Eliminar</b></div>
     </div>
 
-    <div *ngIf="students.length === 0"> No hay estudiantes en este curso <button (click)="showForm()" class="btn btn-primary">Añadir Estudiante</button></div>
-    <div class="row" *ngFor="let student of students; let i = index">
+    <div class="col-12" *ngIf="students.length === 0">
+      <br>
+      No hay estudiantes en este curso
+      <button (click)="showForm()" class="btn btn-primary">
+        Añadir Estudiante
+      </button>
+    </div>
+
+    <div class="row" *ngFor="let student of students; let i = index;">
       <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.nombre }}</div>
       <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.apellido }}</div>
       <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.cres }}</div>

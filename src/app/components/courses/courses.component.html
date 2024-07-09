@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <button routerLink="/cursos" type="button" (click)="addCourse()"
+      <button [disabled]="courseForm.invalid" type="button" (click)="addCourse()"
       class="btn btn-primary">Crear</button>
       <button (click)="toggleForm()" class="btn btn-danger">Cancelar</button>
     </form>

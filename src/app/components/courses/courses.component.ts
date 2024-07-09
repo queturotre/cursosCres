@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
+
 import { CoursesService } from "src/app/services/courses.service";
 import { StudentsService } from "src/app/services/students.service";
 import { Course, Student } from "src/app/models/courseData";
@@ -45,8 +46,8 @@ export class CoursesComponent implements OnInit {
 
   getInitialData() {
     this.coursesService.getCoursesData().subscribe(
-      (resp) => {
-        this.courses = resp;
+      (res) => {
+        this.courses = res;
       }
     );
   }
@@ -80,12 +81,12 @@ export class CoursesComponent implements OnInit {
         console.error('Error adding course', err);
       }
     );
-
-    this.toggleForm();
   }
 
   toggleForm() {
     this.showForm = !this.showForm;
-    this.courseForm.reset();
+    if (!this.showForm){
+      this.courseForm.reset();
+    }
   }
 }

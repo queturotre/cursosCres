@@ -8,25 +8,23 @@ import { Student } from '../models/courseData';
 })
 
 export class StudentsService {
-  apiUrl: string;
+  readonly apiUrl: string = "http://localhost:3000/api";
 
-  constructor(private http: HttpClient) {
-    this.apiUrl = "http://localhost:3000/api";
-  }
+  constructor(private http: HttpClient) { }
 
-  getStudentsData(): Observable<any>{
+  getStudentsData(): Observable<Student[]>{
     let url = this.apiUrl + "/estudiantes";
-    return this.http.get(url);
+    return this.http.get<Student[]>(url);
   }
 
-  getStudentsByCourse(nrc: any): Observable<any> {
+  getStudentsByCourse(nrc: number): Observable<Student[]> {
     let url = `${this.apiUrl}/estudiantes/nrc/${nrc}`;
-    return this.http.get(url);
+    return this.http.get<Student[]>(url);
   }
 
-  addStudent(payload: Student): Observable<any> {
+  addStudent(payload: Student): Observable<Student> {
     let url = `${this.apiUrl}/estudiantes`
-    return this.http.post(url, payload);
+    return this.http.post<Student>(url, payload);
   }
 
   updateStudent(payload: Student): Observable<any> {
@@ -34,8 +32,8 @@ export class StudentsService {
     return this.http.put(url, payload);
   }
 
-  deleteStudent(id: any): Observable<any> {
+  deleteStudent(id: any): Observable<void> {
     let url = `${this.apiUrl}/estudiantes/${id}`;
-    return this.http.delete(url);
+    return this.http.delete<void>(url);
   }
 }

@@ -8,24 +8,22 @@ import { Course } from '../models/courseData';
 })
 
 export class CoursesService {
-  apiUrl: string;
+  readonly apiUrl: string = "http://localhost:3000/api";
 
-  constructor(private http: HttpClient) {
-    this.apiUrl = "http://localhost:3000/api";
-  }
+  constructor(private http: HttpClient) { }
 
-  getCoursesData(): Observable<any>{
+  getCoursesData(): Observable<Course[]>{
     let url = `${this.apiUrl}/cursos`;
-    return this.http.get(url);
+    return this.http.get<Course[]>(url);
   }
 
-  addCourse(payload: Course): Observable<any> {
+  addCourse(payload: Course): Observable<Course> {
     let url = `${this.apiUrl}/cursos`
-    return this.http.post(url, payload);
+    return this.http.post<Course>(url, payload);
   }
 
-  deleteCourse(nrc: any): Observable<any> {
+  deleteCourse(nrc: number): Observable<void> {
     let url = `${this.apiUrl}/cursos/${nrc}`;
-    return this.http.delete(url);
+    return this.http.delete<void>(url);
   }
 }
