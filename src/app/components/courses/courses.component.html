@@ -1,48 +1,35 @@
-<div class="container">
-  <h1>Cursos</h1>
-  <!-- Mostrar los cursos que se vayan creando -->
-  <section *ngFor="let course of courses; let i = index" class="row headera">
-    <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">NRC: {{ course.nrc }}</b>
-    <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">Grado: {{ course.grado }}</b>
-    <b class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">Curso: {{ course.curso }}</b>
-    <button class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-info btn" (click)="selectCourse(course)">Entrar</button>
-  </section> <br>
-
-  <app-course *ngIf="selectedCourse" [course]="selectedCourse" [students]="students"></app-course>
-
-  <button class="btn" routerLink="/">Menú</button>
-  <button class="btn btn-primary" (click)="toggleForm()">Crear Curso</button>
-
-  <div class="form" *ngIf="showForm">
-    <form [formGroup]="courseForm">
+<section *ngFor="let course of courses; let i = index" class="row headera">
+  <b class="col-3">NRC: {{ course.nrc }}</b>
+  <b class="col-3">Grado: {{ course.grado }}</b>
+  <b class="col-3">Curso: {{ course.curso }}</b>
+  <button class="col-3 btn-info btn" (click)="selectCourse(course)">Entrar</button>
+</section>
+<section>
+  <button (click)="showForm()" class="btn btn-primary">Crear curso</button>
+  <div *ngIf="formTemplate">
+    <form [formGroup]="createCourseForm">
       <label for="">NRC</label><br>
-      <div class="input">
+      <div>
         <input type="number" formControlName="nrc" /><br>
-        <div *ngIf="courseForm.controls['nrc'].hasError('required') && courseForm.controls['nrc'].touched">Requerido
-        </div>
+        <div *ngIf="createCourseForm.controls['nrc'].hasError('required') && createCourseForm.controls['nrc'].touched">Requerido</div>
       </div>
 
       <label for="">Grado</label><br>
-      <div class="input">
+      <div>
         <input type="number" formControlName="grado"><br>
-        <div *ngIf="courseForm.controls['grado'].hasError('required') && courseForm.controls['grado'].touched">Requerido
-        </div>
-        <div *ngIf="courseForm.controls['grado'].hasError('max') && courseForm.controls['grado'].touched">Máximo 11
-        </div>
-        <div *ngIf="courseForm.controls['grado'].hasError('min') && courseForm.controls['grado'].touched">Mínimo 1
-        </div>
+        <div *ngIf="createCourseForm.controls['grado'].hasError('required') && createCourseForm.controls['grado'].touched">Requerido</div>
+        <div *ngIf="createCourseForm.controls['grado'].hasError('max') && createCourseForm.controls['grado'].touched">Máximo 11</div>
+        <div *ngIf="createCourseForm.controls['grado'].hasError('min') && createCourseForm.controls['grado'].touched">Mínimo 1</div>
       </div>
 
       <label for="">Curso</label><br>
-      <div class="input">
+      <div>
         <input type="text" formControlName="curso"><br>
-        <div *ngIf="courseForm.controls['curso'].hasError('required') && courseForm.controls['curso'].touched">Requerido
-        </div>
+        <div *ngIf="createCourseForm.controls['curso'].hasError('required') && createCourseForm.controls['curso'].touched">Requerido</div>
       </div>
 
-      <button [disabled]="courseForm.invalid" type="button" (click)="addCourse()"
-      class="btn btn-primary">Crear</button>
-      <button (click)="toggleForm()" class="btn btn-danger">Cancelar</button>
+      <button type="button" class="btn btn-primary" (click)="createCourse(createCourseForm.value)">Crear</button>
+      <button (click)="showForm()" class="btn btn-danger">Cancelar</button>
     </form>
   </div>
-</div>
+</section>

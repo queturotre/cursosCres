@@ -1,40 +1,30 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateCourseComponent } from './components/createCourse/createCourse.component';
 import { CoursesComponent } from './components/courses/courses.component';
-import { CourseComponent } from "./components/courses/course/course.component";
+import { CourseDetailComponent } from './components/course-detail/course-detail.component';
 import { CoursesService } from './services/courses.service';
-import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
-
-const appRoutes: Routes = [
-  {path: "home", component: AppComponent},
-  {path: "courses", component: CoursesComponent}
-];
+import { StudentsService } from './services/students.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateCourseComponent,
     CoursesComponent,
-    CourseComponent,
+    CourseDetailComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     CoursesService,
-    HttpClient,
+    StudentsService
   ],
-  bootstrap: [AppComponent],
-  exports: [RouterModule]
+  bootstrap: [AppComponent]
 })
-
 export class AppModule { }

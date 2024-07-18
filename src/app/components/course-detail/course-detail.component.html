@@ -1,0 +1,26 @@
+<div *ngIf="course" class="container">
+  <header class="headera">
+    <span>NRC: </span><b>{{ course.nrc }}</b><br>
+    <span>Grado: </span><b>{{ course.grado }}</b><br>
+    <span>Curso: </span><b>{{ course.curso }}</b><br>
+  </header>
+
+  <div *ngIf="students.length === 0"> No hay estudiantes en este curso </div>
+  <div class="container text-center" *ngIf="students.length > 0">
+    <div class="row">
+      <div class="col-2"><b>Nombre</b></div>
+      <div class="col-2"><b>Apellido</b></div>
+      <div class="col-2"><b>Cres</b></div>
+    </div>
+
+    <div class="row" *ngFor="let student of students">
+      <div class="col-2">{{ student.nombre }}</div>
+      <div class="col-2">{{ student.apellido }}</div>
+      <div class="col-2">{{ student.cres }}</div>
+    </div>
+  </div>
+
+  <footer>
+    <button routerLink="/courses" class="btn btn-primary">Atrás</button>
+  </footer>
+</div>

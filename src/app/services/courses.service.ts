@@ -17,6 +17,11 @@ export class CoursesService {
     return this.http.get<Course[]>(url);
   }
 
+  getCourseByNrc(nrc: string): Observable<Course> {
+    const url = `${this.apiUrl}/cursos/${nrc}`;
+    return this.http.get<Course>(url);
+  }
+
   addCourse(payload: Course): Observable<Course> {
     let url = `${this.apiUrl}/cursos`
     return this.http.post<Course>(url, payload);
