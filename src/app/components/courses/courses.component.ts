@@ -9,6 +9,7 @@ import { CoursesService } from 'src/app/services/courses.service';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
+
 export class CoursesComponent implements OnInit {
   createCourseForm!: FormGroup;
   formTemplate: boolean = false;

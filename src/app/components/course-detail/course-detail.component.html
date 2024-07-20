@@ -6,26 +6,65 @@
   </header>
 
   <div *ngIf="students.length === 0"> No hay estudiantes en este curso </div>
-  <div class="container text-center" *ngIf="students.length > 0">
-    <table>
-      <tr class="row">
-        <th class="col-2"><b>Nombre</b></th>
-        <th class="col-2"><b>Apellido</b></th>
-        <th class="col-2"><b>Cres</b></th>
-        <th class="col-2"><b>Sumar</b></th>
-        <th class="col-2"><b>Restar</b></th>
-        <th class="col-2"><b>Eliminar</b></th>
-      </tr>
-
-      <div class="row" *ngFor="let student of students">
-        <div class="col-2">{{ student.nombre }}</div>
-        <div class="col-2">{{ student.apellido }}</div>
-        <div class="col-2">{{ student.cres }}</div>
-        <img src="../../../assets/icons/plus.png" alt="Sumar Cres" class="icon col-2" />
-        <img src="../../../assets/icons/minus.png" alt="Restar Cres" class="icon col-2" />
-        <img src="../../../assets/icons/trash-can.png" alt="Eliminar estudiante" class="icon col-2" />
+  <section class="container text-center" *ngIf="students.length > 0">
+    <div class="row">
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Nombre</b></div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Apellido</b></div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Cres</b></div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Sumar</b></div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Restar</b></div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Eliminar</b></div>
+    </div>
+    <div class="row" *ngFor="let student of students; let i = index">
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.nombre }}</div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.apellido }}</div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.cres }}</div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">
+        <img src="../../../assets/icons/plus.png" class="icon"
+            alt="Aumentar Cre" (click)="addCre(i)"/>
       </div>
-    </table>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">
+        <img src="../../../assets/icons/minus.png" class="icon"
+            alt="Disminuir Cre" (click)="diminishCre(i)"/>
+      </div>
+      <div class="col-2 col-xs-2 col-sm-2 col-md-2">
+        <img src="../../../assets/icons/trash-can.png" class="icon"
+            alt="Ícono Basura" (click)="deleteStudent(student.id, i)"/>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <button type="button" (click)="showForm()" class="btn btn-primary">Agregar estudiante</button>
+    <button type="button" (click)="saveCres()" class="btn btn-info" *ngIf="students.length > 0">Guardar cres</button>
+    <button type="button" (click)="deleteCourse()" class="btn btn-danger" *ngIf="students.length > 0" routerLink="courses">Eliminar Curso</button>
+  </section>
+
+  <div *ngIf="showStudentFormView">
+    <form [formGroup]="studentForm">
+      <label for="">Nombre</label><br>
+      <div>
+        <input type="text" formControlName="nombre"><br>
+        <div *ngIf="studentForm.controls['nombre'].hasError('required') && studentForm.controls['nombre'].touched">Requerido</div>
+      </div>
+
+      <label for="">Apellido</label><br>
+      <div>
+        <input type="text" formControlName="apellido"><br>
+        <div *ngIf="studentForm.controls['apellido'].hasError('required') && studentForm.controls['apellido'].touched">Requerido</div>
+      </div>
+
+      <label for="Cres">Cres</label>
+      <div>
+        <input type="number" formControlName="cres"><br>
+        <div *ngIf="studentForm.controls['cres'].hasError('required') && studentForm.controls['cres'].touched">Requerido</div>
+        <div *ngIf="studentForm.controls['cres'].hasError('max') && studentForm.controls['cres'].touched">Máximo 5</div>
+        <div *ngIf="studentForm.controls['cres'].hasError('min') && studentForm.controls['cres'].touched">Mínimo 0</div>
+      </div>
+
+      <button type="button" class="btn btn-primary" (click)="addStudent()">Crear estudiante</button>
+      <button (click)="showForm()" class="btn btn-danger">Cancelar</button>
+    </form>
   </div>
 
   <footer>
