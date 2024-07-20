@@ -24,30 +24,24 @@ export class CourseDetailComponent implements OnInit {
     this.loadCourseDetail();
   }
 
-  loadCourseDetail(){
+  loadCourseDetail(): void {
     const nrc = this.route.snapshot.paramMap.get('nrc');
     if (nrc) {
       this.coursesService.getCourseByNrc(nrc).subscribe(
-        (resp: any) => {
-          console.log(resp);
-          this.course = resp[0];
-          console.log(this.course);
-          this.loadStudentsDetails();
-        }, (error) => {
+        (course) => {
+          this.course = course;
+          this.getStudentsData();
+        },
+        (error) => {
           console.error('Error fetching course details', error);
         }
       );
     }
   }
 
-  loadStudentsDetails(){
-    const nrc = this.route.snapshot.paramMap.get('nrc');
-    if (nrc){
-      this.studentsService.getStudentsByCourse(parseInt(nrc)).subscribe(
-        (resp) => {
-          this.students = resp;
-        }
-      );
-    }
+  getStudentsData(){
+    this.studentsService.getStudentsByCourse(6).subscribe(
+
+    );
   }
 }

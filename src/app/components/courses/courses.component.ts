@@ -47,7 +47,7 @@ export class CoursesComponent implements OnInit {
     })
   }
 
-  createCourse(payload: Course): void{
+  createCourse(payload: Course){
     this.coursesService.addCourse(payload).subscribe(
       () => this.getInitialData()
     );
