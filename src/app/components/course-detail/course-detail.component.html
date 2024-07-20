@@ -7,17 +7,25 @@
 
   <div *ngIf="students.length === 0"> No hay estudiantes en este curso </div>
   <div class="container text-center" *ngIf="students.length > 0">
-    <div class="row">
-      <div class="col-2"><b>Nombre</b></div>
-      <div class="col-2"><b>Apellido</b></div>
-      <div class="col-2"><b>Cres</b></div>
-    </div>
+    <table>
+      <tr class="row">
+        <th class="col-2"><b>Nombre</b></th>
+        <th class="col-2"><b>Apellido</b></th>
+        <th class="col-2"><b>Cres</b></th>
+        <th class="col-2"><b>Sumar</b></th>
+        <th class="col-2"><b>Restar</b></th>
+        <th class="col-2"><b>Eliminar</b></th>
+      </tr>
 
-    <div class="row" *ngFor="let student of students">
-      <div class="col-2">{{ student.nombre }}</div>
-      <div class="col-2">{{ student.apellido }}</div>
-      <div class="col-2">{{ student.cres }}</div>
-    </div>
+      <div class="row" *ngFor="let student of students">
+        <div class="col-2">{{ student.nombre }}</div>
+        <div class="col-2">{{ student.apellido }}</div>
+        <div class="col-2">{{ student.cres }}</div>
+        <img src="../../../assets/icons/plus.png" alt="Sumar Cres" class="icon col-2" />
+        <img src="../../../assets/icons/minus.png" alt="Restar Cres" class="icon col-2" />
+        <img src="../../../assets/icons/trash-can.png" alt="Eliminar estudiante" class="icon col-2" />
+      </div>
+    </table>
   </div>
 
   <footer>
