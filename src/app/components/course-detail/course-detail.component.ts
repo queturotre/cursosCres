@@ -4,6 +4,7 @@ import { Course, Student } from 'src/app/models/courseData';
 import { CoursesService } from 'src/app/services/courses.service';
 import { StudentsService } from 'src/app/services/students.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-course-detail',
@@ -24,7 +25,8 @@ export class CourseDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private coursesService: CoursesService,
     private studentsService: StudentsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -47,8 +49,8 @@ export class CourseDetailComponent implements OnInit {
   loadCourseDetail(){
     if (this.nrc) {
       this.coursesService.getCourseByNrc(this.nrc).subscribe(
-        (resp: any) => {
-          this.course = resp[0];
+        (res: any) => {
+          this.course = res[0];
           this.loadStudentsDetails();
         }, (error) => {
           console.error('Error fetching course details', error);
@@ -60,8 +62,8 @@ export class CourseDetailComponent implements OnInit {
   loadStudentsDetails(){
     if (this.nrc){
       this.studentsService.getStudentsByCourse(this.nrc).subscribe(
-        (resp) => {
-          this.students = resp;
+        (res) => {
+          this.students = res;
         }
       );
     }
@@ -83,30 +85,38 @@ export class CourseDetailComponent implements OnInit {
         console.log('Student added successfully ', res);
         this.showForm();
         this.loadStudentsDetails();
+        this.toastrService.info('Estudiante añadido 👍');
       },
       (err) => {
         console.error('Error adding student', err);
+        this.toastrService.error('No se pudo añadir al estudiante', 'Error');
       }
     );
   }
 
   deleteStudent(id: any, i: number) {
-    this.students.splice(i, 1);
-    this.studentsService.deleteStudent(id).subscribe(
-      () => {
-        console.log(`Student deleted successfully`);
-      },
-      (err) => {
-        console.error(`Error deleting student`, err);
-      }
-    );
+    if(confirm("Seguro que quiere eliminar el estudiante?")){
+      this.students.splice(i, 1);
+      this.studentsService.deleteStudent(id).subscribe(
+        () => {
+          console.log(`Student deleted successfully`);
+          this.toastrService.success('Estudiante eliminado', 'Éxito');
+        },
+        (err) => {
+          console.error(`Error deleting student`, err);
+        }
+      );
+    } else {
+      this.toastrService.show('No se ha eliminado el estudiante');
+    }
   }
 
-  saveCres(){
+  editStudents(){
     this.students.forEach(student => {
       this.studentsService.updateStudent(student).subscribe(
         () => {
           console.log(`${student.nombre} ${student.apellido} updated successfully`);
+          this.toastrService.show('Todos los estudiantes han sido actualizados');
         },
         (err) => {
           console.error(`Error updating student ${student.nombre} ${student.apellido}`, err);
@@ -116,15 +126,19 @@ export class CourseDetailComponent implements OnInit {
   }
 
   deleteCourse(){
-    this.coursesService.deleteCourse(this.nrc).subscribe(
-      () => {
-        console.log(`The ENTIRE course has been deleted successfully`);
-
-      },
-      (err) => {
-        console.error(`Error deleting course`, err);
-      }
-    );
+    if(confirm("El curso entero se eliminará. Está segur@ de esta acción?")){
+      this.coursesService.deleteCourse(this.nrc).subscribe(
+        () => {
+          console.log(`The ENTIRE course has been deleted successfully`);
+          this.toastrService.show('Curso '+this.nrc+' eliminado');
+        },
+        (err) => {
+          console.error(`Error deleting course`, err);
+        }
+      );
+    } else {
+      this.toastrService.show('No se ha eliminado el curso');
+    }
   }
 
   showForm() {
@@ -136,10 +150,12 @@ export class CourseDetailComponent implements OnInit {
 
   addCre(i: number) {
     this.students[i].cres += 1;
+    this.studentsService.updateStudent(this.students[i]).subscribe();
   }
 
   diminishCre(i: number) {
     this.students[i].cres -= 1;
+    this.studentsService.updateStudent(this.students[i]).subscribe();
   }
 
 }
