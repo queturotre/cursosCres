@@ -3,3 +3,8 @@
   height: 20px;
   cursor: pointer;
 }
+
+.container{
+  background-color: aliceblue;
+  width: 100%;
+}

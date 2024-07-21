@@ -38,6 +38,7 @@
     <button type="button" (click)="showForm()" class="btn btn-primary">Agregar estudiante</button>
     <button type="button" (click)="saveCres()" class="btn btn-info" *ngIf="students.length > 0">Guardar cres</button>
     <button type="button" (click)="deleteCourse()" class="btn btn-danger" *ngIf="students.length > 0" routerLink="courses">Eliminar Curso</button>
+    <button type="button" class="btn btn-primary" routerLink="/courses">Atrás</button>
   </section>
 
   <div *ngIf="showStudentFormView">
@@ -66,8 +67,4 @@
       <button (click)="showForm()" class="btn btn-danger">Cancelar</button>
     </form>
   </div>
-
-  <footer>
-    <button routerLink="/courses" class="btn btn-primary">Atrás</button>
-  </footer>
 </div>
