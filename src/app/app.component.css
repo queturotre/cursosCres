@@ -1,1 +1,9 @@
+.head{
+  display: flex;
+  justify-content: center;
+}
 
+.mainTitle{
+  color: aliceblue;
+  font-weight: bolder;
+}

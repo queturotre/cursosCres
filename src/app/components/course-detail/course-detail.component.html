@@ -1,70 +1,84 @@
 <div *ngIf="course" class="container">
   <header class="headera">
-    <span>NRC: </span><b>{{ course.nrc }}</b><br>
-    <span>Grado: </span><b>{{ course.grado }}</b><br>
-    <span>Curso: </span><b>{{ course.curso }}</b><br>
+    <b>NRC: {{ course.nrc }}</b>
+    <b>Grado: {{ course.grado }}</b>
+    <b>Curso: {{ course.curso }}</b>
   </header>
-
   <div *ngIf="students.length === 0"> No hay estudiantes en este curso </div>
   <section class="container text-center" *ngIf="students.length > 0">
     <div class="row">
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Nombre</b></div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Apellido</b></div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Cres</b></div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Sumar</b></div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Restar</b></div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2"><b>Eliminar</b></div>
+      <div class="col-2 col-xs-3 col-sm-3 col-md-2"><b>Nombre</b></div>
+      <div class="col-2 col-xs-3 col-sm-3 col-md-2"><b>Apellido</b></div>
+      <div class="col-2 col-xs-3 col-sm-3 col-md-2"><b>Cres</b></div>
+      <div class="col-2 col-xs-1 col-sm-1 col-md-2"><b>Sumar</b></div>
+      <div class="col-2 col-xs-1 col-sm-1 col-md-2"><b>Restar</b></div>
+      <div class="col-2 col-xs-1 col-sm-1 col-md-2"><b>Eliminar</b></div>
     </div>
     <div class="row" *ngFor="let student of students; let i = index">
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.nombre }}</div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.apellido }}</div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2">{{ student.cres }}</div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2">
+      <div class="col-2 col-xs-3 col-sm-3 col-md-2">{{ student.nombre }}</div>
+      <div class="col-2 col-xs-3 col-sm-3 col-md-2">{{ student.apellido }}</div>
+      <div class="col-2 col-xs-3 col-sm-3 col-md-2">{{ student.cres }}</div>
+      <div class="col-2 col-xs-1 col-sm-1 col-md-2">
         <img src="../../../assets/icons/plus.png" class="icon"
             alt="Aumentar Cre" (click)="addCre(i)"/>
       </div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2">
+      <div class="col-2 col-xs-1 col-sm-1 col-md-2">
         <img src="../../../assets/icons/minus.png" class="icon"
             alt="Disminuir Cre" (click)="diminishCre(i)"/>
       </div>
-      <div class="col-2 col-xs-2 col-sm-2 col-md-2">
+      <div class="col-2 col-xs-1 col-sm-21 col-md-2">
         <img src="../../../assets/icons/trash-can.png" class="icon"
             alt="Ícono Basura" (click)="deleteStudent(student.id, i)"/>
       </div>
     </div>
   </section>
 
-  <section>
-    <button type="button" (click)="showForm()" class="btn btn-primary">Agregar estudiante</button>
-    <button type="button" (click)="editStudents()" class="btn btn-info" *ngIf="students.length > 0">Guardar cres</button>
-    <button type="button" (click)="deleteCourse()" class="btn btn-danger" routerLink="courses">Eliminar Curso</button>
-    <button type="button" class="btn btn-primary" routerLink="/courses">Atrás</button>
+  <section class="buttons">
+      <button type="button" (click)="showForm()" class="btn btn-info">Agregar estudiante</button>
+      <button type="button" (click)="deleteCourse()" class="btn btn-danger" routerLink="courses">Eliminar Curso</button>
+      <button type="button" class="btn btn-primary" routerLink="/courses">Atrás</button>
   </section>
 
-  <div *ngIf="showStudentFormView">
-    <form [formGroup]="studentForm">
-      <label for="">Nombre</label><br>
+  <div *ngIf="showStudentFormView" class="student-form">
+    <form [formGroup]="studentForm" class="form-container">
+      <label for="nombre">Nombre</label>
       <div>
-        <input type="text" formControlName="nombre"><br>
-        <div *ngIf="studentForm.controls['nombre'].hasError('required') && studentForm.controls['nombre'].touched">Requerido</div>
+        <input class="input-data" type="text" formControlName="nombre"><br>
+        <div class="error-message" *ngIf="studentForm.controls['nombre'].hasError('required') && studentForm.controls['nombre'].touched">
+          Requerido
+        </div>
+        <div class="error-message" *ngIf="studentForm.controls['nombre'].hasError('minlength') && studentForm.controls['nombre'].touched">
+          Mínimo 2 caracteres
+        </div>
+        <div class="error-message" *ngIf="studentForm.controls['nombre'].hasError('maxlength') && studentForm.controls['nombre'].touched">
+          Máximo 20 caracteres
+        </div>
       </div>
 
-      <label for="">Apellido</label><br>
+      <label for="apellido">Apellido</label>
       <div>
-        <input type="text" formControlName="apellido"><br>
-        <div *ngIf="studentForm.controls['apellido'].hasError('required') && studentForm.controls['apellido'].touched">Requerido</div>
+        <input class="input-data" type="text" formControlName="apellido"><br>
+        <div class="error-message" *ngIf="studentForm.controls['apellido'].hasError('required') && studentForm.controls['apellido'].touched">
+          Requerido
+        </div>
+        <div class="error-message" *ngIf="studentForm.controls['apellido'].hasError('minlength') && studentForm.controls['apellido'].touched">
+          Mínimo 2 caracteres
+        </div>
+        <div class="error-message" *ngIf="studentForm.controls['apellido'].hasError('maxlength') && studentForm.controls['apellido'].touched">
+          Máximo 20 caracteres
+        </div>
       </div>
 
       <label for="Cres">Cres</label>
       <div>
-        <input type="number" formControlName="cres"><br>
-        <div *ngIf="studentForm.controls['cres'].hasError('required') && studentForm.controls['cres'].touched">Requerido</div>
-        <div *ngIf="studentForm.controls['cres'].hasError('max') && studentForm.controls['cres'].touched">Máximo 5</div>
-        <div *ngIf="studentForm.controls['cres'].hasError('min') && studentForm.controls['cres'].touched">Mínimo 0</div>
+        <input class="input-data" type="number" formControlName="cres">
+        <div class="error-message" *ngIf="studentForm.controls['cres'].hasError('required') && studentForm.controls['cres'].touched">Requerido</div>
+        <div class="error-message" *ngIf="studentForm.controls['cres'].hasError('max') && studentForm.controls['cres'].touched">Máximo 5</div>
+        <div class="error-message" *ngIf="studentForm.controls['cres'].hasError('min') && studentForm.controls['cres'].touched">Mínimo 0</div>
       </div>
 
-      <button type="button" class="btn btn-primary" (click)="addStudent()">Crear estudiante</button>
-      <button (click)="showForm()" class="btn btn-danger">Cancelar</button>
+      <button type="button" class="btn btn-info form-button" (click)="addStudent()">Crear estudiante</button>
+      <button (click)="showForm()" class="btn btn-danger form-button">Cancelar</button>
     </form>
   </div>
 </div>

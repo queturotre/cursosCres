@@ -1,10 +1,60 @@
+.container{
+  background-color: aliceblue;
+  border-radius: 40px;
+  width: 100%;
+}
+
+.headera{
+  display: flex;
+  font-size: large;
+  justify-content: space-evenly;
+  margin: 40px;
+}
+
 .icon{
   width: 20px;
   height: 20px;
   cursor: pointer;
 }
 
-.container{
-  background-color: aliceblue;
+.buttons{
+  display: flex;
+  justify-content: space-evenly;
+  margin: 40px;
+}
+
+.student-form{
+  display: flex;
+  justify-content: center;
+}
+
+.form-container{
+  align-items: center;
+  background-color: #986efa3e;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px 0px;
+  justify-content: center;
+  padding: 4% 5%;
+  width: fit-content;
+}
+
+.input-data{
+  border: black;
+  border-radius: 4px;
+  margin: 0%;
+  padding: 15px 30px;
+  font-size: larger;
   width: 100%;
+}
+
+.form-button{
+  width: 100%;
+}
+
+.error-message{
+  color: red;
+  font-weight: bold;
+  text-align: center;
 }

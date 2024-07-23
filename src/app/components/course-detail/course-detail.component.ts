@@ -36,11 +36,25 @@ export class CourseDetailComponent implements OnInit {
 
   buildForms(){
     this.studentForm = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      cres: [0,
+      nombre: ['',
         Validators.compose([
-          Validators.required, Validators.min(0), Validators.max(5)
+          Validators.required,
+          Validators.maxLength(20),
+          Validators.minLength(2)
+        ])
+      ],
+      apellido: ['',
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(20),
+          Validators.minLength(2)
+        ])
+      ],
+      cres: ['',
+        Validators.compose([
+          Validators.required,
+          Validators.min(0),
+          Validators.max(5)
         ])
       ],
     });
