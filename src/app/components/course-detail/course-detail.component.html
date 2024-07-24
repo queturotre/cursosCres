@@ -4,7 +4,7 @@
     <b>Grado: {{ course.grado }}</b>
     <b>Curso: {{ course.curso }}</b>
   </header>
-  <div *ngIf="students.length === 0"> No hay estudiantes en este curso </div>
+  <div class="no-student" *ngIf="students.length === 0"> No hay estudiantes en este curso </div>
   <section class="container text-center" *ngIf="students.length > 0">
     <div class="row">
       <div class="col-2 col-xs-3 col-sm-3 col-md-2"><b>Nombre</b></div>
@@ -39,8 +39,8 @@
       <button type="button" class="btn btn-primary" routerLink="/courses">Atrás</button>
   </section>
 
-  <div *ngIf="showStudentFormView" class="student-form">
-    <form [formGroup]="studentForm" class="form-container">
+  <div *ngIf="showStudentFormView" class="form-container">
+    <form [formGroup]="studentForm" class="student-form">
       <label for="nombre">Nombre</label>
       <div>
         <input class="input-data" type="text" formControlName="nombre"><br>

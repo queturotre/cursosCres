@@ -1,7 +1,18 @@
 .container{
   background-color: aliceblue;
   border-radius: 40px;
+  margin-top: 50px;
   width: 100%;
+}
+
+.head{
+  display: flex;
+  justify-content: center;
+}
+
+.mainTitle{
+  color: aliceblue;
+  font-weight: bolder;
 }
 
 .headera{
@@ -9,6 +20,11 @@
   font-size: large;
   justify-content: space-evenly;
   margin: 40px;
+}
+
+.no-student{
+  display: flex;
+  justify-content: center;
 }
 
 .icon{
@@ -23,12 +39,12 @@
   margin: 40px;
 }
 
-.student-form{
+.form-container{
   display: flex;
   justify-content: center;
 }
 
-.form-container{
+.student-form{
   align-items: center;
   background-color: #986efa3e;
   border-radius: 40px;
@@ -36,6 +52,7 @@
   flex-direction: column;
   gap: 10px 0px;
   justify-content: center;
+  margin-bottom: 40px;
   padding: 4% 5%;
   width: fit-content;
 }
