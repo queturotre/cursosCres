@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-.contenedor {
+.contenedor, html {
   --s: 150px; /* control the size*/
   --c1: #1d1d1d;
   --c2: #4e4f51;
@@ -10,6 +10,49 @@
       calc(.5*var(--s)) calc(.5*var(--s)*0.577),
       repeating-conic-gradient(from 30deg,var(--c1) 0 60deg,var(--c2) 0 120deg,var(--c3) 0 180deg);
   background-size: var(--s) calc(var(--s)*0.577);
+}
 
-  height: 120vh;
+/* :root {
+  --toast-background: #343a40;
+  --toast-border-radius: 8px;
+  --toast-color: #ffffff;
+  --toast-close-color: #ffffff;
+  --toast-progress-background: #17a2b8;
+} */
+
+.toast-container {
+  position: fixed;
+  z-index: 9999;
+}
+
+.toast {
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.toast-success {
+  background-color: #28a745;
+}
+
+.toast-error {
+  background-color: #dc3545;
+}
+
+.toast-warning {
+  background-color: #ffc107;
+}
+
+.toast-info {
+  background-color: #17a2b8;
+}
+
+.toast-progress {
+  background-color: #ffffff;
+  height: 4px;
+  bottom: 0;
+  position: absolute;
+  width: 0;
 }

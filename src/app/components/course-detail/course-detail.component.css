@@ -1,18 +1,8 @@
 .container{
   background-color: aliceblue;
   border-radius: 40px;
-  margin-top: 50px;
+  margin: 50px 0 50px 0;
   width: 100%;
-}
-
-.head{
-  display: flex;
-  justify-content: center;
-}
-
-.mainTitle{
-  color: aliceblue;
-  font-weight: bolder;
 }
 
 .headera{

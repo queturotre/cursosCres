@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router'
+import { ToastrService } from 'ngx-toastr';
 import { Course } from 'src/app/models/courseData';
 import { CoursesService } from 'src/app/services/courses.service';
 
@@ -18,7 +19,8 @@ export class CoursesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -44,13 +46,27 @@ export class CoursesComponent implements OnInit {
           Validators.max(11)
         ])
       ],
-      curso: ['',Validators.required]
+      curso: ['',
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(20),
+          Validators.minLength(4)
+        ])
+      ]
     })
   }
 
   createCourse(payload: Course){
     this.coursesService.addCourse(payload).subscribe(
-      () => this.getInitialData()
+      () => this.getInitialData(),
+      (err) => {
+        this.courses.forEach(i => {
+          if(payload.nrc === i.nrc){
+            this.toastrService.error('Ya existe este curso, por favor cambia el NRC');
+          }
+        });
+        console.error(err);
+      }
     );
   }
 

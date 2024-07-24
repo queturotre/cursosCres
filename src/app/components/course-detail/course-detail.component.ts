@@ -66,8 +66,9 @@ export class CourseDetailComponent implements OnInit {
         (res: any) => {
           this.course = res[0];
           this.loadStudentsDetails();
-        }, (error) => {
-          console.error('Error fetching course details', error);
+        }, (err) => {
+          console.error('Error fetching course details', err);
+          this.toastrService.error(err);
         }
       );
     }
@@ -99,11 +100,11 @@ export class CourseDetailComponent implements OnInit {
         console.log('Student added successfully ', res);
         this.showForm();
         this.loadStudentsDetails();
-        this.toastrService.info('Estudiante añadido 👍');
+        this.toastrService.success('Estudiante añadido 👍 exitosamente');
       },
       (err) => {
         console.error('Error adding student', err);
-        this.toastrService.error('No se pudo añadir al estudiante', 'Error');
+        this.toastrService.error('No se pudo añadir al estudiante', err);
       }
     );
   }
@@ -118,10 +119,11 @@ export class CourseDetailComponent implements OnInit {
         },
         (err) => {
           console.error(`Error deleting student`, err);
+          this.toastrService.error('Estudiante eliminado', err);
         }
       );
     } else {
-      this.toastrService.show('No se ha eliminado el estudiante');
+      this.toastrService.info('No se ha eliminado el estudiante');
     }
   }
 
@@ -144,10 +146,11 @@ export class CourseDetailComponent implements OnInit {
       this.coursesService.deleteCourse(this.nrc).subscribe(
         () => {
           console.log(`The ENTIRE course has been deleted successfully`);
-          this.toastrService.show('Curso '+this.nrc+' eliminado');
+          this.toastrService.success('Curso '+this.nrc+' eliminado');
         },
         (err) => {
           console.error(`Error deleting course`, err);
+          this.toastrService.error("No se ha podido eliminar el curso", "Error");
         }
       );
     } else {

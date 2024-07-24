@@ -20,7 +20,11 @@ import { StudentsService } from './services/students.service';
   ],
   imports: [
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

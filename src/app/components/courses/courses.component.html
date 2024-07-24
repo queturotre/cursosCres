@@ -1,38 +1,56 @@
-<div class="head">
-  <h1 class="mainTitle">Cres</h1>
-</div>
-<section *ngFor="let course of courses; let i = index" class="row headera">
-  <b class="col-3">NRC: {{ course.nrc }}</b>
-  <b class="col-3">Grado: {{ course.grado }}</b>
-  <b class="col-3">Curso: {{ course.curso }}</b>
-  <button class="col-3 btn-info btn" (click)="selectCourse(course)">Entrar</button>
-</section>
-<section>
-  <button (click)="showForm()" class="btn btn-primary">Crear curso</button>
-  <div *ngIf="formTemplate">
-    <form [formGroup]="createCourseForm">
-      <label for="">NRC</label><br>
-      <div>
-        <input type="number" formControlName="nrc" /><br>
-        <div *ngIf="createCourseForm.controls['nrc'].hasError('required') && createCourseForm.controls['nrc'].touched">Requerido</div>
-      </div>
-
-      <label for="">Grado</label><br>
-      <div>
-        <input type="number" formControlName="grado"><br>
-        <div *ngIf="createCourseForm.controls['grado'].hasError('required') && createCourseForm.controls['grado'].touched">Requerido</div>
-        <div *ngIf="createCourseForm.controls['grado'].hasError('max') && createCourseForm.controls['grado'].touched">Máximo 11</div>
-        <div *ngIf="createCourseForm.controls['grado'].hasError('min') && createCourseForm.controls['grado'].touched">Mínimo 1</div>
-      </div>
-
-      <label for="">Curso</label><br>
-      <div>
-        <input type="text" formControlName="curso"><br>
-        <div *ngIf="createCourseForm.controls['curso'].hasError('required') && createCourseForm.controls['curso'].touched">Requerido</div>
-      </div>
-
-      <button type="button" class="btn btn-primary" (click)="createCourse(createCourseForm.value)">Crear</button>
-      <button (click)="showForm()" class="btn btn-danger">Cancelar</button>
-    </form>
+<div class="container">
+  <div class="head">
+    <h1 class="mainTitle">Cres</h1>
   </div>
-</section>
+  <section *ngFor="let course of courses; let i = index" class="row headera">
+    <b class="col-md-3">NRC: {{ course.nrc }}</b>
+    <b class="col-md-3">Grado: {{ course.grado }}</b>
+    <b class="col-md-3">Curso: {{ course.curso }}</b>
+    <button class="col-md-3 btn btn-info" (click)="selectCourse(course)">Entrar</button>
+  </section>
+  <div class="buttons">
+    <button (click)="showForm()" class="btn btn-info">Crear curso</button>
+  </div>
+  <section>
+    <div *ngIf="formTemplate" class="form-container">
+      <form [formGroup]="createCourseForm" class="course-form">
+        <label for="">NRC</label>
+        <div>
+          <input type="number" formControlName="nrc" class="input-data" />
+          <div class="error-message" *ngIf="createCourseForm.controls['nrc'].hasError('required') && createCourseForm.controls['nrc'].touched">Requerido</div>
+        </div>
+
+        <label for="">Grado</label>
+        <div>
+          <input type="number" formControlName="grado" class="input-data">
+          <div class="error-message" *ngIf="createCourseForm.controls['grado'].hasError('required') && createCourseForm.controls['grado'].touched">
+            Requerido
+          </div>
+          <div class="error-message" *ngIf="createCourseForm.controls['grado'].hasError('max') && createCourseForm.controls['grado'].touched">
+            Máximo 11
+          </div>
+          <div class="error-message" *ngIf="createCourseForm.controls['grado'].hasError('min') && createCourseForm.controls['grado'].touched">
+            Mínimo 1
+          </div>
+        </div>
+
+        <label for="">Curso</label>
+        <div>
+          <input type="text" formControlName="curso" class="input-data">
+          <div class="error-message" *ngIf="createCourseForm.controls['curso'].hasError('required') && createCourseForm.controls['curso'].touched">
+            Requerido
+          </div>
+          <div class="error-message" *ngIf="createCourseForm.controls['curso'].hasError('maxlength') && createCourseForm.controls['curso'].touched">
+            Máximo 20 caracteres
+          </div>
+          <div class="error-message" *ngIf="createCourseForm.controls['curso'].hasError('minlength') && createCourseForm.controls['curso'].touched">
+            Mínimo 4 caracteres
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-info form-button" (click)="createCourse(createCourseForm.value)">Crear</button>
+        <button (click)="showForm()" class="btn btn-danger form-button">Cancelar</button>
+      </form>
+    </div>
+  </section>
+</div>

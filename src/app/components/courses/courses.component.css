@@ -1,0 +1,63 @@
+.container{
+  background-color: aliceblue;
+  border-radius: 40px;
+  margin: 50px 0 50px 0;
+  width: 100%;
+}
+
+.mainTitle{
+  color: black;
+  display: flex;
+  font-weight: bolder;
+  justify-content: center;
+}
+
+.headera{
+  display: flex;
+  font-size: large;
+  justify-content: space-evenly;
+  margin: 40px;
+}
+
+.buttons{
+  display: flex;
+  justify-content: center;
+  margin: 40px;
+}
+
+.form-container{
+  display: flex;
+  justify-content: center;
+}
+
+.course-form{
+  align-items: center;
+  background-color: #986efa3e;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px 0px;
+  justify-content: center;
+  margin-bottom: 40px;
+  padding: 4% 5%;
+  width: fit-content;
+}
+
+.input-data{
+  border: black;
+  border-radius: 4px;
+  margin: 0%;
+  padding: 15px 30px;
+  font-size: larger;
+  width: 100%;
+}
+
+.error-message{
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-button{
+  width: 100%;
+}
