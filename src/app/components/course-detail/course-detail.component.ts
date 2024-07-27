@@ -154,7 +154,7 @@ export class CourseDetailComponent implements OnInit {
         }
       );
     } else {
-      this.toastrService.show('No se ha eliminado el curso');
+      this.toastrService.info('No se ha eliminado el curso');
     }
   }
 

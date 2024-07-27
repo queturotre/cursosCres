@@ -11,12 +11,14 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { CourseDetailComponent } from './components/course-detail/course-detail.component';
 import { CoursesService } from './services/courses.service';
 import { StudentsService } from './services/students.service';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CoursesComponent,
-    CourseDetailComponent
+    CourseDetailComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserAnimationsModule,

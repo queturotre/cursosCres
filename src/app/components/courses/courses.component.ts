@@ -58,7 +58,10 @@ export class CoursesComponent implements OnInit {
 
   createCourse(payload: Course){
     this.coursesService.addCourse(payload).subscribe(
-      () => this.getInitialData(),
+      () => {
+        this.getInitialData();
+        this.toastrService.success("Curso creado exitosamente")
+      },
       (err) => {
         this.courses.forEach(i => {
           if(payload.nrc === i.nrc){

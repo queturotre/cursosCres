@@ -1,0 +1,13 @@
+.container{
+  background-color: aliceblue;
+  border-radius: 40px;
+  margin-top: 30vh;
+  padding: 4%;
+  width: 50%;
+}
+
+.container h1, .container p, .container a{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
