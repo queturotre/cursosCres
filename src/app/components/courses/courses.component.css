@@ -19,6 +19,11 @@
   margin: 40px;
 }
 
+.no-courses{
+  display: flex;
+  justify-content: center;
+}
+
 .buttons{
   display: flex;
   justify-content: center;

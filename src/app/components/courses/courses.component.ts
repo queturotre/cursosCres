@@ -32,6 +32,9 @@ export class CoursesComponent implements OnInit {
     this.coursesService.getCoursesData().subscribe(
       (resp) => {
         this.courses = resp;
+      },
+      (err) => {
+        this.toastrService.error('Hubo un error listando los cursos');
       }
     );
   }
@@ -50,7 +53,7 @@ export class CoursesComponent implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.maxLength(20),
-          Validators.minLength(4)
+          Validators.minLength(2)
         ])
       ]
     })
@@ -68,7 +71,7 @@ export class CoursesComponent implements OnInit {
             this.toastrService.error('Ya existe este curso, por favor cambia el NRC');
           }
         });
-        console.error(err);
+        this.toastrService.error('Hubo un error creando el curso');
       }
     );
   }

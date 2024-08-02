@@ -8,6 +8,7 @@
     <b class="col-md-3">Curso: {{ course.curso }}</b>
     <button class="col-md-3 btn btn-success" (click)="selectCourse(course)">Entrar</button>
   </section>
+  <section class="no-courses" *ngIf="courses.length == 0">No hay cursos creados</section>
   <div class="buttons">
     <button (click)="showForm()" class="btn btn-info">Crear curso</button>
   </div>
@@ -44,7 +45,7 @@
             Máximo 20 caracteres
           </div>
           <div class="error-message" *ngIf="createCourseForm.controls['curso'].hasError('minlength') && createCourseForm.controls['curso'].touched">
-            Mínimo 4 caracteres
+            Mínimo 2 caracteres
           </div>
         </div>
 
